@@ -12,9 +12,10 @@ MySql 5+
 
 Installation:
 
-1. Download and unzip the package.
-2. Create a database for the script on your web server, as well as a MySQL user who has all privileges for accessing it.
-3. Run the sql commands are found in the db-install.sql file in your database and optionally for sample data, do the same with the db-sample.sql
-3. Open the config.php file in the admin/include directory in a text editor and set up your details following the comments in the file
-4. Upload all files in the desired location on your web server
-5. That's it, all done!
+1. Download package. If you downloaded a zipped one then unzip it.
+2. Create a database for the script on your web server and a MySQL user who has all privileges for accessing.
+3. Run the sql commands are found in the db-install.sql file on your database.
+4. If you need sample data, run the sql commands in the db-sample.sql too.
+3. Go to the admin/include directory, open the config.php file and set it up according the comments.
+4. Upload all files to the desired location on your web server
+5. That's it.
