@@ -1,0 +1,26 @@
+
+#form_ad_create input[type="text"],
+#form_ad_create textarea ,   
+#form_ad_create select {   
+    width: 300px;
+}
+
+#form_ad_edit input[type="text"],
+#form_ad_edit textarea ,   
+#form_ad_edit select {   
+    width: 300px;
+}
+
+#form_ad_create #title-counter ,
+#form_ad_create #description-counter {
+	display:inline;
+	width:25px;
+	height:18px;
+}
+
+#form_ad_edit #title-counter ,
+#form_ad_edit #description-counter {
+	display:inline;
+	width:25px;
+	height:18px;
+}

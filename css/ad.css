@@ -1,0 +1,42 @@
+#ad-view {
+	margin:15px;
+}
+
+.ad-data {
+	width:100%;
+	float:left;
+	margin: 10px 0;
+}
+
+.current-picture {
+	float:left;
+	text-align:center;
+}
+
+.current-picture p {
+	font-size:13px;
+}
+
+.description {
+	float:left; 
+	margin-left: 20px; 
+	width: 75%;
+}
+
+table {
+	border-collapse:collapse;
+}
+
+table, td, th {
+	border:1px solid gray;
+	padding:5px;
+}
+
+th {
+	background-color:green;
+	color:white;
+}
+
+.ad-data .usertools {
+	text-align: center;
+}

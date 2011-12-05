@@ -1,0 +1,153 @@
+#hide-form {
+	font-size: 12px;
+	float:right;
+	margin-right:15px;
+}
+
+.form-panel {
+	margin: 10px 10px 0;
+	width: 97%;
+	background: url("../images/wire_bg.gif") repeat-x scroll 0 0 #F5F5F5;
+    border: 1px solid #DADADA;
+}
+
+.form-panel legend {
+	margin:0;
+	padding:0;
+}
+
+.form-panel form br {
+	clear:both;
+}
+
+.form-panel form label {
+	display:block;
+	margin-right: 20px;
+	vertical-align: top;
+}
+
+.form-panel form .required {
+	font-weight: bold;
+}
+
+.form-panel form input[type="text"],
+.form-panel form input[type="password"],
+.form-panel form input[type="file"],
+.form-panel form rextarea,
+.form-panel form select {
+	width:220px;
+}
+
+input[disabled="disabled"] {
+	background: none repeat scroll 0 0 #EEEEEE;
+	border: 0 none;
+}
+
+.form-panel form input[type="submit"] {
+	width:100px;
+}
+
+.form-panel form input[type="checkbox"] {
+	float:left;
+	margin:1px 5px;
+}
+
+.form-panel .fleft {
+	width: 100%;
+}
+
+#form_search .fleft {
+	width: 75%;
+}
+
+.form-right {
+	float:left;
+	text-align:left;
+}
+
+.input-set {
+	float: left;
+}
+
+.form-panel form p.note {
+	font-size: 10px;
+	margin-left: 75px;
+	line-height: 35px;
+	width: 335px;
+}
+
+#title-counter {
+	width:20px;
+	height:10px;
+	vertical-align:bottom;
+	border:0;
+}
+
+#description-counter {
+	width:30px;
+	height:10px;
+	vertical-align:bottom;
+	border:0;
+}
+
+.form-panel br {
+	margin:10px;
+}
+
+.input-block {
+	float:left;
+	margin: 10px 15px;
+}
+
+#search-button {
+	margin-top: 52px;
+}
+	
+p.success {
+	margin:0 0 0 10px;
+}
+
+p.error {
+	color:red;
+}
+
+ul.errors {
+	padding:0;
+	color:red;
+	margin: 0 20px;
+}
+
+ul.errors li {
+	float:left;
+	margin: 0 10px 10px;
+	list-style-type: none;
+}
+
+.form-panel form div.note {
+	font-size: 12px;
+	margin-left:5px;
+}
+
+.form-panel form div.note span {
+	float:left;
+}
+
+#search-fileds {
+	float:left;
+	width:335px
+}
+
+#search-fileds p {
+	float:left;
+	margin:0 10px 0 0;
+	width:95px;
+}
+
+#search-fileds input[type="checkbox"] {
+	margin:2px 
+}
+
+#del-current-pic {
+	margin-top:145px;
+	margin-left: 0;
+}

@@ -1,0 +1,36 @@
+.ad-panel {
+    background: url("../images/wire_bg.gif") repeat-x scroll 0 0 #F5F5F5;
+    border: 1px solid #DADADA;
+    float:left;
+    padding: 15px 15px 5px;
+    margin:10px;
+}
+
+.ad-panel .picture {
+	float:left;
+	margin:10px;
+	width:150px;
+	height:150px;
+	text-align:center;
+} 
+
+.ad-panel .details {
+	float:left;
+	width:624px;
+	overflow:hidden;
+	margin-left:10px;
+}
+
+.usertools a {
+	margin: 0 10px;
+}
+
+hr.separator {
+	width: 95%;
+}
+
+#pager {
+	text-align:center;
+	clear:both;
+	padding:40px 0;
+}

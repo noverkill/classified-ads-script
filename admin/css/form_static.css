@@ -1,0 +1,30 @@
+
+#form_static_create input[type="text"],
+#form_static_create textarea ,   
+#form_static_create select {   
+    width: 600px;
+}
+
+#form_static_edit input[type="text"],
+#form_static_edit textarea ,   
+#form_static_edit select {   
+    width: 600px;
+}
+
+#form_static_edit #id {   
+    width: 200px;
+}
+
+#form_static_create #title-counter ,
+#form_static_create #description-counter {
+	display:inline;
+	width:25px;
+	height:18px;
+}
+
+#form_static_edit #title-counter ,
+#form_static_edit #description-counter {
+	display:inline;
+	width:25px;
+	height:18px;
+}

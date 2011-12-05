@@ -1,0 +1,29 @@
+  		
+.table
+{
+	text-align: left;
+}
+
+.table th
+{
+	color: #039;
+	background: #b9c9fe;
+	padding: 8px;
+}
+
+.table td
+{
+	color: #669;
+	background: #EBF4FB;
+	padding: 8px;
+}
+
+.table tbody tr:hover td
+{
+	background: #d0dafd;
+}
+
+.table a {
+    color: #898989;
+    text-decoration: none;
+}

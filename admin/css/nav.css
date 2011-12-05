@@ -1,0 +1,47 @@
+
+#menu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	}
+			
+#menu {
+	width: 200px;
+	border-style: solid solid none solid;
+	border-color: #D8D5D1;
+	border-size: 1px;
+	border-width: 1px;
+	}
+	
+#menu li a {
+	height: 32px;
+  	voice-family: "\"}\""; 
+  	voice-family: inherit;
+  	height: 24px;
+	text-decoration: none;
+	}	
+	
+#menu li a:link, #menu li a:visited {
+	color: #3688BA;
+	display: block;
+	background:  url(../images/menu.gif);
+	padding: 8px 0 0 30px;
+	}
+	
+#menu li a:hover {
+	color: #3688BA;
+	background:  url(../images/menu.gif) 0 -32px;
+	padding: 8px 0 0 32px;
+	}
+
+#menu ul.second-level {
+	padding-left: 8px;
+}
+
+ul.second-level li a {
+	padding-left: 52px;	
+}
+
+#menu li a.menu-item-selected {
+	background:  url(../images/menu.gif) 0 -32px;
+}

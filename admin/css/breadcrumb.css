@@ -1,0 +1,40 @@
+
+#breadcrumb {
+	font: 14px Arial, Helvetica, sans-serif;
+	background-image:url('../images/bc_bg.png');
+	background-repeat:repeat-x;
+	height:30px;
+	line-height:30px;
+	color:#9b9b9b;
+	border:solid 1px #cacaca;
+	width:100%;
+	overflow:hidden;
+	margin:0px;
+	padding:0px;
+}
+
+#breadcrumb li {
+	list-style-type:none;
+	float:left;
+	padding-left:10px;
+}
+
+#breadcrumb a {
+	height:30px;
+	display:block;
+	background-image:url('../images/bc_separator.png');
+	background-repeat:no-repeat;
+	background-position:right;
+	padding-right: 15px;
+	text-decoration: none;
+	color:#454545;
+}
+
+#breadcrumb a:hover {
+	color:#35acc5;
+}
+
+.home {
+	border: none;
+	margin: 8px 0px;
+}

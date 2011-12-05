@@ -1,0 +1,28 @@
+  		
+#form_create label {
+	width: 130px;
+}
+
+#form_create .errors {
+	margin-left: 170px;
+}
+
+#form_create .success {
+	margin-left: 170px;
+}
+
+#field_edit label {
+	width: 100px;
+}
+
+#field_edit .errors {
+	margin-left: 140px;
+}
+
+#field_edit .success {
+	margin-left: 100px;
+}
+
+#field_edit #regexp_select {
+	width: 80px;
+}

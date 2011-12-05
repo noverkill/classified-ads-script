@@ -1,0 +1,157 @@
+
+.form {
+	display:table;
+	font-size: 15px;
+	padding:10px;
+	border:solid 2px #DFE6EC;
+	border-radius: 10px;
+	background:#EBF4FB;
+	font-family: Tahoma;
+}
+
+.form  h2 {
+	font-size: 1.4em;
+	height: 26px;
+	border-bottom:solid 1px #3E5C7D;
+	color: #5F7FA8;
+	font-weight: normal;
+	padding-bottom: 7px;
+	width: 100%;
+}
+
+.form .errors {
+	color:red;
+	margin: 15px 110px;
+}
+
+.form .success {
+	color:green;
+	font-size: 1em;
+	font-weight:bold;
+	margin: 15px 110px;
+}		
+				
+.form  label {
+	float:left;
+	width: 70px;
+	text-align: right;
+	margin: 5px 20px 20px 0;	
+	color: #898989;
+	font-weight: bold;
+}
+
+.form  input[type="text"], input[type="password"], textarea, select {
+	font-size:12px;
+	margin:0;	
+	padding:3px;
+	border: 1px solid #DDDDDD;
+	width:200px;
+}
+
+.form select {
+	width:200px;
+}
+
+.form  input[type="radio"], input[type="checkbox"] {
+	margin: 9px 5px 0 20px;
+}
+
+.form  input[type="radio"], input[type="checkbox"] {
+	margin: 9px 5px 0;
+}
+
+.form  span {
+	margin:5px;	
+	text-align:right;
+	font-size: 0.8em;
+}
+
+.form  br {
+	clear: both;
+}
+
+input[type="submit"] {
+	font-size: 1em;
+	padding: 0 10px;
+}
+
+.form span input[type="submit"] {
+	color: #005596;
+	text-decoration: underline;
+	width: auto;
+	min-width: 30px;
+	background: none repeat scroll 0 50% transparent;
+	border: 0 none;
+	margin-top: -2px;
+	padding: 3px;
+	overflow: visible;
+	display: inline-block;
+	cursor: pointer;
+	
+}
+
+.form p.note {
+	color: #898989;
+	font-size: 0.8em;
+	font-style: italic;
+	margin: 0 100px;
+	padding:4 0 0 0;	
+	vertical-align:top;		
+}
+
+.form div.note {
+	color: #898989;
+	font-size: 0.8em;
+	font-style: italic;
+	margin: 0 100px;
+	padding:4 0 0 0;	
+	vertical-align:top;		
+}
+
+.form p.note input {
+	float:left;
+	display:inline;
+	width:25px;
+	padding: 0;
+	margin-right: 3px;
+}
+
+fieldset {
+	border:0;
+	border-top: 1px solid #898989;
+}
+
+legend {
+	font-size: 1em;
+	font-style: italic;
+	color:  #898989;
+	padding: 10px;
+}
+
+#form_create label {
+	width: 130px;
+}
+
+#form_create .errors {
+	margin-left: 170px;
+}
+
+#form_create .success {
+	margin-left: 170px;
+}
+
+#field_edit label {
+	width: 100px;
+}
+
+#field_edit .errors {
+	margin-left: 140px;
+}
+
+#field_edit .success {
+	margin-left: 100px;
+}
+
+#field_edit #regexp_select {
+	width: 80px;
+}
