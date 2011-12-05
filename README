@@ -7,7 +7,7 @@ Support at:     http://classified-ads-script.co.uk/forum/
 Requirements:
 
 Apache 2
-PHP 5.3+ (GD support)
+PHP 5.3+ (with PEAR and GD support)
 MySql 5+
 
 Installation:
