@@ -45,6 +45,21 @@ if( strpos( $current_script_name, '-' ) > 0 ) {
 	$current_sub_page   = array ( 'name' => '', 'script' => '' ); 	
 }
 
+/**
+ * Function for build and modify the query string.
+ * 
+ * The function build the query string based on the contents of the $_GET superglobal array 
+ * and it can be modified with the content of the input array by the following rules:
+ * Every element in the input array
+ * 1, (ADD) which has non-existent key in the query string and has no -1 value will be added to the query string.
+ * 2, (MODIFY) whose key is already in the query string and has no -1 value will be overwritten with its value in the query string. 
+ * 3, (DELETE) whose key is already in the query string and has -1 value will be deleted from the query string.
+ *
+ * @since version 1.0.0.
+ *
+ * @param    array    $values    The array which the query string will be based on
+ * @return   string              The created query string
+ */
 function build_query_string( $values ) {
 	
 	$get = array ();
@@ -62,6 +77,17 @@ function build_query_string( $values ) {
 	
 }
 
+/**
+ * Function to create a html link 
+ *
+ * @since version 1.0.0.
+ *
+ * 
+ * @param    string    $url       The url of the link
+ * @param    string    $target    The target of the link
+ * @param    string    $title     The title of the link
+ * @return   string               String contains the html mailto link
+ */
 function create_web_link( $url, $target = '', $title = '' ) {
 
  $target = $target == '' ? '' : "target='$target'";
@@ -72,6 +98,16 @@ function create_web_link( $url, $target = '', $title = '' ) {
 
 }
 
+/**
+ * Function to create a html mailto link 
+ *
+ *
+ * @since version 1.0.0.
+ *
+ * @param    string    $mail_address	The url of the link
+ * @param    string    $title     		The title of the link
+ * @return   string               		String contains the html mailto link
+ */
 function create_mail_link( $mail_address, $title = '' ) {
 
  $title = $title == '' ? $mail_address : $title;
@@ -79,7 +115,16 @@ function create_mail_link( $mail_address, $title = '' ) {
  return "<a href='mailto:$mail_address'>$title</a>";
 
 }
- 		
+
+/**
+ * Get host name from the url
+ *
+ *
+ * @since version 1.0.0.
+ *
+ * @param    string    $url			
+ * @return   string               host name
+ */ 		
 function get_host_from_url ($url) {
 	
 	$url = preg_replace( '/^[\\w]{0,10}?:\/\//', '', $url);
@@ -99,6 +144,16 @@ function get_host_from_url ($url) {
 	return $url;
 } 
 
+/**
+ * Create slug
+ *
+ *
+ * @since version 1.0.0.
+ *
+ * @param    string    $str			The string which we need to make a slug from-	
+ * @param    string    $delimiter	The delimitier we need to use between words. Optional. Default: -		
+ * @return   string                 The created slug.
+ */ 
 function slug ($str, $delimiter='-') {
 	
 	$replace = array ("'");	//spec characters need to be replace to a delimiter  e.g. I'll be back -> i-ll-be-back
@@ -113,7 +168,21 @@ function slug ($str, $delimiter='-') {
 	return $clean;
 }
 
+/**
+ * Formate a number as currency
+ *
+ * The function takes the number provided in the input parameter
+ * format it as a currency using the $currency configuration constant
+ * from the config.php and return as a string  
+ *
+ * @since version 1.0.0.
+ *
+ * @param    string    $str			The number which we need to format as a currency		
+ * @return   string                 The formatted string.
+ */ 
 function str_to_currency ($str) {
+	
+	global $currency;
 	
 	if( $str == '') return $str;
 	
@@ -135,11 +204,27 @@ function str_to_currency ($str) {
 
 	for ($i = 1; $i <= strlen( $curr); $i++) $rcurr [$i-1] = $curr[strlen( $curr) - $i];
 
-	return "USD $rcurr";
+	return "$currency $rcurr";
 }
 
-function debug( $var, $cap='' ) {	
-	if( $cap != '' ) print $cap.'<br />';
+/**
+ * the function can print out the contents of a variable or an 
+ * object for debbuging purpose.
+ * 
+ * 
+ * The purpose of this function is to make a formatted, transparent
+ * appearance for the output of the print_r function.
+ * So this function put the neccesary html tags around the output and 
+ * it also possible to add a title for it.
+ * 
+ * 
+ * @since version 1.0.0.
+ *
+ * @param    string    $var			The var needs to be debugged
+ * @param    string    $title       The optional title for the debug
+ */ 
+function debug( $var, $title='' ) {	
+	if( $title != '' ) print $title.'<br />';
 	print '<pre>';
 	print_r( $var );
 	print '</pre>';

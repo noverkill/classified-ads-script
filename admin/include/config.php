@@ -19,6 +19,8 @@ $db_name          = 'your-database-name'; 		// name of the database prepared to 
 $db_user          = 'your-database-user';    	// the name of the db user who can acces to the database with all privileges
 $db_pass          = 'your-database-password';	// the password of the above db user
 
+$currency         = '$';						// the currency symbol you intend to use e.g. USD, $, EUR etc..
+
 session_start();
 header( 'Content-Type: text/html; charset=UTF-8' );
       

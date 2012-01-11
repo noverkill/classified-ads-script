@@ -10,7 +10,7 @@ class User extends Table {
 
 		global $db;
 				
-        $db->sql = "SHOW TABLES FROM ".$db->db;                  
+        $db->sql = "SHOW TABLES FROM `".$db->db."`";                  
         $db->query();
 
 		$menu = array();
