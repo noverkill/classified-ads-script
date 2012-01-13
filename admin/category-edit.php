@@ -18,6 +18,17 @@ if( $g_id > 0 && ! $exists ) {
 	$errors = array( $current_group_page['name'] . " not exist." );	
 }
 
+if( $exists ) {
+	
+	$p_parent = $category['parent'];
+	$p_name   = $category['name'];
+	$p_slug   = $category['slug'];
+	
+	$current_sub_page['name'] .= " ( id: $g_id )"; 
+}
+
+if( isset( $_POST['reset'] ) ) unset( $_POST );
+
 if( $exists && isset( $_POST['category_edit'] ) ) {
 
     $p_parent = isset( $_POST['parent'] ) ? (int) $_POST['parent'] : 0;
@@ -57,15 +68,6 @@ if( $exists && isset( $_POST['category_edit'] ) ) {
 
 		$category = Category::get_one( $g_id );
     }
-}
-
-if( $exists ) {
-	
-	$p_parent = $category['parent'];
-	$p_name   = $category['name'];
-	$p_slug   = $category['slug'];
-	
-	$current_sub_page['name'] .= " ( id: $g_id )"; 
 }
 
 $categories = Category::get_all( array( 'parent' => 0 ) );
@@ -129,6 +131,7 @@ include ("page-header.php");
 				
 				<label for='category_edit'></label>
 				<input type='submit' name='category_edit' value='Modify'/>
+				<span><input type="submit" name="reset" value="Reset" onclick="return confirm('Do you really want to reset the form?')" /></span>
 			
 			<?php } ?>
 

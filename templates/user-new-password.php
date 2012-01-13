@@ -24,7 +24,7 @@ endif;
 
 	<?include('./templates/parts/panels.php')?>
 
-	<?include('./templates/parts/new-password-form.php')?>
+	<?include('./templates/parts/user-new-password-form.php')?>
 
 	<br />
 

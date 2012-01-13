@@ -18,6 +18,16 @@ if( $g_id > 0 && ! $exists ) {
 	$errors = array( $current_group_page['name'] . " not exist." );	
 }
 
+if( $exists ) {
+	
+	$p_name   = $expiry['name'];
+	$p_period = $expiry['period'];
+
+	$current_sub_page['name'] .= " ( id: $g_id )"; 
+}
+
+if( isset( $_POST['reset'] ) ) unset( $_POST );
+
 if( $exists && isset( $_POST['expiry_edit'] ) ) {
 
     $p_name   = trim($_POST['name']);
@@ -44,14 +54,6 @@ if( $exists && isset( $_POST['expiry_edit'] ) ) {
 
 		$expiry = Expiry::get_one( $g_id );
     }
-}
-
-if( $exists ) {
-	
-	$p_name   = $expiry['name'];
-	$p_period = $expiry['period'];
-
-	$current_sub_page['name'] .= " ( id: $g_id )"; 
 }
 
 include ("page-header.php"); 
@@ -105,6 +107,7 @@ include ("page-header.php");
 				
 				<label for='expiry_edit'></label>
 				<input type='submit' name='expiry_edit' value='Modify'/>
+				<span><input type="submit" name="reset" value="Reset" onclick="return confirm('Do you really want to reset the form?')" /></span>
 
 			<?php } ?>
 			

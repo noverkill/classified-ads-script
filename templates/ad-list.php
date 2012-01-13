@@ -1,19 +1,19 @@
 <?include ('./templates/parts/page-top.php')?>
+
+<?
+if($tct < 1):
+	$panels = array(array(
+		'legend' => 'Information',
+		'body'   => "<p class='success'>No result.</p>",
+	) );
+endif
+?>
 					
 <div id="middle">
 
-	<?include('./templates/parts/search-form.php')?>
+	<?include('./templates/parts/ad-search-form.php')?>
 
-	<?if($tct < 1):
-			
-		$panels = array(array(
-			'legend' => 'Information',
-			'body'   => "<p class='success'>No result.</p>",
-		) );
-		
-		include('./templates/parts/panels.php');
-		
-	endif?>
+	<?include('./templates/parts/panels.php')?>
 
 	<?include('./templates/parts/ad-list.php')?>
 

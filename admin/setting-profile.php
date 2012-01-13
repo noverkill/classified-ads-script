@@ -13,6 +13,20 @@ $user = User::get_one( $g_id );
 
 $exists = 1;
 
+if( $exists ) {
+	
+	$p_name        = $user['name'];
+	$p_username    = $user['username'];
+	$p_email       = $user['email'];
+	$p_telephone   = $user['telephone'];
+	$p_city        = $user['city'];
+	$p_region      = $user['region'];
+	$p_category    = $user['category'];
+	$p_webpage     = $user['webpage'];
+}
+
+if( isset( $_POST['reset'] ) ) unset( $_POST );
+
 if( $exists && isset( $_POST['setting_profile'] ) ) {
 
     $p_name      = trim( strip_tags( $_POST['name'] ) );
@@ -105,18 +119,6 @@ if( $exists && isset( $_POST['setting_profile'] ) ) {
 		
 		$user = User::get_one( $g_id );
 	}
-}
-
-if( $exists ) {
-	
-	$p_name        = $user['name'];
-	$p_username    = $user['username'];
-	$p_email       = $user['email'];
-	$p_telephone   = $user['telephone'];
-	$p_city        = $user['city'];
-	$p_region      = $user['region'];
-	$p_category    = $user['category'];
-	$p_webpage     = $user['webpage'];
 }
 
 include ("page-header.php"); 
@@ -221,6 +223,7 @@ include ("page-header.php");
 								
 			<label for="setting_profile"></label>
 			<input type="submit" name="setting_profile" value="Modify"/>
+			<span><input type="submit" name="reset" value="Reset" onclick="return confirm('Do you really want to reset the form?')" /></span>
 
 		</form>
 

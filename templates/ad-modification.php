@@ -46,7 +46,7 @@ $expiries = Expiry::get_all();
 
 	<?include('./templates/parts/panels.php')?>
 	
-	<?include('./templates/parts/modification-form.php')?>
+	<?include('./templates/parts/ad-modification-form.php')?>
 	
 	<br />
 

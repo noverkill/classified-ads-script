@@ -18,6 +18,17 @@ if( $g_id > 0 && ! $exists ) {
 	$errors = array( $current_group_page['name'] . " not exist." );	
 }
 
+if( $exists ) {
+	
+	$p_parent = $region['parent'];
+	$p_name   = $region['name'];
+	$p_slug   = $region['slug'];
+
+	$current_sub_page['name'] .= " ( id: $g_id )"; 
+}
+
+if( isset( $_POST['reset'] ) ) unset( $_POST );
+
 if( $exists && isset( $_POST['region_edit'] ) ) {
 
     $p_parent = isset( $_POST['parent'] ) ? (int) $_POST['parent'] : 0;
@@ -57,15 +68,6 @@ if( $exists && isset( $_POST['region_edit'] ) ) {
 
 		$region = Region::get_one( $g_id );
     }
-}
-
-if( $exists ) {
-	
-	$p_parent = $region['parent'];
-	$p_name   = $region['name'];
-	$p_slug   = $region['slug'];
-
-	$current_sub_page['name'] .= " ( id: $g_id )"; 
 }
 
 $regions = Region::get_all( array( 'parent' => 0 ) );
@@ -129,6 +131,7 @@ include ("page-header.php");
 				
 				<label for='region_edit'></label>
 				<input type='submit' name='region_edit' value='Modify'/>
+				<span><input type="submit" name="reset" value="Reset" onclick="return confirm('Do you really want to reset the form?')" /></span>
 			
 			<?php } ?>
 		

@@ -9,9 +9,6 @@ if ( ! User::is_logged_in() || User::get_id() != 1) {
 }
 
 $g_id = ( isset( $_REQUEST['id'] ) ) ? (int) $_REQUEST['id'] : 0;
-
-$success = true;
-$errors = array();
     
 $user = User::get_one( $g_id );
 
@@ -22,8 +19,23 @@ if( $g_id > 0 && ! $exists ) {
 	$errors = array_push( $errors, $current_group_page['name'] . " not exist." );	
 }
 
-$p_send_activation_email = isset( $_POST['send_activation_email'] ) ? 1 : 0;
+if( $exists ) {
 	
+	$p_name        = $user['name'];
+	$p_username    = $user['username'];
+	$p_email       = $user['email'];
+	$p_telephone   = $user['telephone'];
+	$p_city        = $user['city'];
+	$p_region      = $user['region'];
+	$p_category    = $user['category'];
+	$p_webpage     = $user['webpage'];
+	$p_active      = $user['active'];
+
+	$current_sub_page['name'] .= " ( id: $g_id )"; 
+}
+
+if( isset( $_POST['reset'] ) ) unset( $_POST );
+
 if( $exists && isset( $_POST['user_edit'] ) ) {
 
     $p_name      = trim( strip_tags( $_POST['name'] ) );
@@ -33,6 +45,11 @@ if( $exists && isset( $_POST['user_edit'] ) ) {
     $p_category  = (int) $_POST['category'];
     $p_webpage   = trim( strip_tags( $_POST['webpage'] ) );
 	$p_active    = isset( $_POST['active'] ) ? 1 : 0;
+
+	$p_send_activation_email = isset( $_POST['send_activation_email'] ) ? 1 : 0;
+
+	$success = true;
+	$errors = array();
 
     if( $p_name == '' ) {
         $success = false;
@@ -71,34 +88,19 @@ if( $exists && isset( $_POST['user_edit'] ) ) {
 		User::update( $g_id, $fields );
 		
 		$user = User::get_one( $g_id );
-	}
-}
 
-if( $exists ) {
-	
-	$p_name        = $user['name'];
-	$p_username    = $user['username'];
-	$p_email       = $user['email'];
-	$p_telephone   = $user['telephone'];
-	$p_city        = $user['city'];
-	$p_region      = $user['region'];
-	$p_category    = $user['category'];
-	$p_webpage     = $user['webpage'];
-	$p_active      = $user['active'];
+		if( $p_send_activation_email ) {
 
-	$current_sub_page['name'] .= " ( id: $g_id )"; 
-	
-	if( $p_send_activation_email ) {
+			$userid    = $user['id'];
+			$code      = $user['code'];
+			$username  = $user['username'];
+			$password  = $user['password'];
+					
+			$message = StaticContent::get_content('user-registration-email');		
+			eval( "\$message = \"$message\";" );
 
-		$p_password  = $user['password'];
-		$p_code      = $user['code'];
-	
-		$message = StaticContent::get_content('user-registration-email');		
-		eval( "\$message = \"$message\";" );
-
-		mail ($user['email'], "Registration", $message, "From: ".$noreply); 
-		
-		print $message;			
+			mail ($user['email'], "Registration", $message, "From: ".$noreply); 		
+		}
 	}
 }
 
@@ -119,8 +121,8 @@ include ("page-header.php");
 			<br />
 
 			<?php
-			if (isset($success)) {
-				if (!$success) {
+			if( isset( $success ) ) {
+				if( ! $success ) {
 					print "<ul class='errors'>";
 					foreach ($errors as $err) print "<li>$err</li>";
 					print "</ul>";
@@ -224,12 +226,13 @@ include ("page-header.php");
 				<br />
 
 				<label for='send_activation_email'>&nbsp;</label>
-				<input name='send_activation_email' type='checkbox' <?php if( $p_send_activation_email && isset( $success ) && ! $success) print 'checked="checked"'; ?> />Send activation email
+				<input name='send_activation_email' type='checkbox' <?php if( isset( $p_send_activation_email ) && $p_send_activation_email && isset( $success ) && ! $success) print 'checked="checked"'; ?> />Send activation email
 				<br />
 				<br />
 									
 				<label for="user_edit"></label>
 				<input type="submit" name="user_edit" value="Modify"/>
+				<span><input type="submit" name="reset" value="Reset" onclick="return confirm('Do you really want to reset the form?')" /></span>
 
 			<?php } ?>
 			

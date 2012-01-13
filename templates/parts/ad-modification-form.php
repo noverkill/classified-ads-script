@@ -61,11 +61,11 @@
 			<div class="fleft">
 				<div class="input-block">
 					<label for='region' class="required">Region</label>
-					<?include('./templates/parts/region-selector.php')?>  
+					<?include('./templates/parts/select-region.php')?>  
 				</div>
 				<div class="input-block">
 					<label for='category' class="required">Category</label>
-					<?include('./templates/parts/category-selector.php')?> 
+					<?include('./templates/parts/select-category.php')?> 
 				</div>														
 				<div class="input-block">
 					<label for='city'>City</label>

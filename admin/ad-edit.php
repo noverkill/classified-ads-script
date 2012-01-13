@@ -19,6 +19,25 @@ if( $g_id > 0 && ! $exists ) {
 	$errors = array( $current_group_page['name'] . " not exist." );	
 }
 
+if( $exists ) {
+		
+	$p_name        = $ad['name'];
+	$p_telephone   = $ad['telephone'];
+	$p_title       = $ad['title'];
+	$p_description = $ad['description'];
+	$p_category    = isset( $ad['sub_category_id'] ) ? $ad['sub_category_id'] : $ad['main_category_id'];
+	$p_price       = $ad['price'];
+	$p_city        = $ad['city'];
+	$p_region      = isset( $ad['sub_region_id'] ) ? $ad['sub_region_id'] : $ad['main_region_id'];
+	$p_webpage     = $ad['webpage'];
+	$p_expiry      = $ad['expiry'];	
+	$p_del_picture = 0;
+
+	$current_sub_page['name'] .= " ( id: $g_id )"; 
+}
+
+if( isset( $_POST['reset'] ) ) unset( $_POST );
+
 if( $exists && isset( $_POST['ad_edit'] ) ) {
 	
 	$p_name        = trim( strip_tags( $_POST['name'] ) );
@@ -111,22 +130,6 @@ if( $exists && isset( $_POST['ad_edit'] ) ) {
 	}
 }
 
-if( $exists ) {
-		
-	$p_name        = $ad['name'];
-	$p_telephone   = $ad['telephone'];
-	$p_title       = $ad['title'];
-	$p_description = $ad['description'];
-	$p_category    = isset( $ad['sub_category_id'] ) ? $ad['sub_category_id'] : $ad['main_category_id'];
-	$p_price       = $ad['price'];
-	$p_city        = $ad['city'];
-	$p_region      = isset( $ad['sub_region_id'] ) ? $ad['sub_region_id'] : $ad['main_region_id'];
-	$p_webpage     = $ad['webpage'];
-	$p_expiry      = $ad['expiry'];	
-	$p_del_picture = 0;
-
-	$current_sub_page['name'] .= " ( id: $g_id )"; 
-}
 					
 $expiries = Expiry::get_all();
 
@@ -286,7 +289,8 @@ include ("page-header.php");
 				<br />
 																
 				<label for="ad_edit"></label>
-				<input type="submit" name="ad_edit" value="Modify"/>	
+				<input type="submit" name="ad_edit" value="Modify" />	
+				<span><input type="submit" name="reset" value="Reset" onclick="return confirm('Do you really want to reset the form?')" /></span>
 			
 			<?php } ?>		
 														

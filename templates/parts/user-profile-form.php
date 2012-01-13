@@ -44,11 +44,11 @@
 			<div class="fleft">
 				<div class="input-block">
 					<label for='regio'>Region</label> 
-					<?include('./templates/parts/region-selector.php')?>                 
+					<?include('./templates/parts/select-region.php')?>                 
 				</div>					
 				<div class="input-block">
 					<label for='category'>Frequently used category</label>
-					<?include('./templates/parts/category-selector.php')?>  
+					<?include('./templates/parts/select-category.php')?>  
 				</div>					
 			</div>							
 			
