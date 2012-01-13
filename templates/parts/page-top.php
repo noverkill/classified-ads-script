@@ -9,10 +9,10 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="content-language" content="en" />
 	
-	<meta name="keywords" content="<?php print $site_keywords; ?>" />
+	<meta name="keywords" content="<?=$site_keywords?>" />
 	<meta name="description" content="" />
     
-    <title><?php print $site_title; ?></title>
+    <title><?=$site_title?></title>
     
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	      	
@@ -32,14 +32,14 @@
 		
 		<div id='top'>
 		
-			<h1><?php print $site_title; ?></h1>	
+			<h1><?=$site_title?></h1>	
 						
 			<div id="menu">
-				<?php $qstr = build_query_string( array_merge( $_GET, array( 'id' => -1, 'code' => -1 ) ) ); ?>
-				<a title="classified-home" href=<?php print "index.php?$qstr"; if( isset( $curr_page ) && $curr_page=="home" ) print "class='curr-page'"; ?>>Home</a>
-				<a title="classified-regions" href=<?php print "region-list.php?$qstr"; if( isset( $curr_page ) && $curr_page=="regions") print "class='curr-page'"; ?>>Regions</a>
-				<a title="classified-categories" href=<?php print "category-list.php?$qstr"; if( isset( $curr_page ) && $curr_page=="categories") print "class='curr-page'"; ?>>Categories</a>
-				<a title="post-an-ad" href="ad-placement.php" class="fright" <?php if( isset( $curr_page ) && $curr_page=="post-an-ad") print "class='curr-page'"; ?>>Post an Ad</a>
+				<?$qstr = build_query_string(array_merge($_GET,array('id'=>-1,'code'=>-1)))?>
+				<a title="classified-home" href=<?="index.php?$qstr"; if(isset($curr_page)&& $curr_page=="home") print "class='curr-page'"?>>Home</a>
+				<a title="classified-regions" href=<?="region-list.php?$qstr"; if(isset($curr_page)&& $curr_page=="regions") print "class='curr-page'"?>>Regions</a>
+				<a title="classified-categories" href=<?="category-list.php?$qstr"; if(isset($curr_page)&& $curr_page=="categories") print "class='curr-page'"?>>Categories</a>
+				<a title="post-an-ad" href="ad-placement.php" class="fright" <?if(isset($curr_page)&& $curr_page=="post-an-ad") print "class='curr-page'"?>>Post an Ad</a>
 			</div>
 
 		</div>

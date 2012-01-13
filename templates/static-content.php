@@ -1,15 +1,15 @@
-<?php include ("page-top.php"); ?>
+<?include('./templates/parts/page-top.php')?>
 							
 <div id="middle">
 
 	<div id="static">
 		
-		<?php print $StaticContent ?>
+		<?=$StaticContent?>
 
 	</div>
 	
 </div>
 
-<?php include ("page-right.php"); ?>
+<?include('./templates/parts/page-right.php')?>
 
-<?php include ("page-footer.php"); ?>
+<?include('./templates/parts/page-footer.php')?>

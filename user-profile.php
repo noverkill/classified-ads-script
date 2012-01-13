@@ -3,7 +3,9 @@
 include( "./admin/include/common.php");
 
 if( ! User::is_logged_in() ) header( 'Location: index.php' );
-	
+
+if( isset( $_POST['reset'] ) ) unset( $_POST );
+
 if( isset( $_POST['modify'] ) ) {
 	
     $p_name      = trim( strip_tags( $_POST['name'] ) );

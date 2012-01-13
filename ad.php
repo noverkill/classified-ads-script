@@ -1,9 +1,9 @@
 <?php
 
-include( "./admin/include/common.php");
-include( "Pager/Pager.php");
+include( "./admin/include/common.php" );
+include( "Pager/Pager.php" );
 
-$g_id   = isset( $_GET['id']) ? (int) $_GET['id'] : 0;
+$g_id = isset( $_GET['id']) ? (int) $_GET['id'] : 0;
 
 $ad = Ad::get_one( $g_id );
 

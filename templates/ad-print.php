@@ -19,31 +19,31 @@
 
 <body>
 
-	<?php if( $exists ) { 
+	<?if($exists): 
 
-		$fields = array (
-			array ('name','Posted by'),
-			array ('email','Email'),
-			array ('title','Title'),
-			array ('description','Description'),
-			array ('price','Price'),
-			array ('telephone','Telephone'),
-			array ('webpage','Webpage'),
-			array ('city','City'),
-			array ('postedon','Posted on'),
-			array ('expiry','Exipiry'),
-			array (isset( $row['sub_category_name'] ) ? 'sub_category' : 'main_category', 'Category'),
-			array (isset( $row['sub_region_name'] ) ? 'sub_region' : 'main_region', 'Region')
+		$fields = array(
+			array('name','Posted by'),
+			array('email','Email'),
+			array('title','Title'),
+			array('description','Description'),
+			array('price','Price'),
+			array('telephone','Telephone'),
+			array('webpage','Webpage'),
+			array('city','City'),
+			array('postedon','Posted on'),
+			array('expiry','Exipiry'),
+			array(isset($row['sub_category_name'])? 'sub_category' : 'main_category','Category'),
+			array(isset($row['sub_region_name'])? 'sub_region' : 'main_region','Region')
 		);
 
 		$row = array();
 
-		foreach( $fields as $field ) {
-			if( $ad[$field[0]] != '' ) {
-				$row[] = array( 'title' => $field[1], 'value' => $ad[$field[0]] );
-			}
-		}
+		foreach($fields as $field):
+			if($ad[$field[0]] != '')
+				$row[] = array('title'=>$field[1],'value'=>$ad[$field[0]]);
+		endforeach;
 	?>
+	
 	<table cellpadding='5px' cellspacing='1px'>
 		<tr>
 			<td>		
@@ -52,7 +52,7 @@
 				</a>		
 			</td>
 			<td align='center'>
-				<?php print $site_url; ?>
+				<?=$site_url?>
 			</td>
 		</tr>	
 		<tr>
@@ -60,28 +60,28 @@
 				Picture
 			</td>
 			<td >
-				<img src='<?php print $ad['thumb']; ?>' />
+				<img src='<?=$ad['thumb']?>' />
 			</td>
 		</tr>	
-		<?php foreach ($row as $r) { ?>
-		<tr>
-			<td ><?php print $r['title']; ?></td>
-			<td width='500px' ><?php print $r['value']; ?></td>
-		</tr>
-		<?php } ?>
+		<?foreach($row as $r):?>
+			<tr>
+				<td ><?=$r['title']?></td>
+				<td width='500px' ><?=$r['value']?></td>
+			</tr>
+		<?endforeach?>
 		
 		<tr>
 			<td colspan=2 align='center'>
-				<?php print $site_url; ?>
+				<?=$site_url?>
 			</td>
 		</tr>
 	</table>
 	
-<?php } else { ?>
+	<?else:?>
 	
-	<p class='error'>The requested Ad is inactive or not exist!</p>
+		<p class='error'>The requested Ad is inactive or not exist!</p>
 
-<?php } ?>
+	<?endif?>
 	
 </body>
 </html>

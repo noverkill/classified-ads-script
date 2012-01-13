@@ -1,5 +1,7 @@
 <?php
 
+error_reporting( E_ALL & ~E_STRICT );
+
 ini_set( 'display_errors', '0' ); 										
 
 date_default_timezone_set( 'America/Chicago' );	// set the timezone of the server the script runs on, if not sure, do not touch and do not comment it out!
@@ -19,7 +21,7 @@ $db_name          = 'your-database-name'; 		// name of the database prepared to 
 $db_user          = 'your-database-user';    	// the name of the db user who can acces to the database with all privileges
 $db_pass          = 'your-database-password';	// the password of the above db user
 
-$currency         = '$';						// the currency symbol you intend to use e.g. USD, $, EUR etc..
+$currency         = '£';						// the currency symbol you intend to use e.g. USD, $, EUR etc..
 
 session_start();
 header( 'Content-Type: text/html; charset=UTF-8' );

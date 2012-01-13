@@ -128,16 +128,6 @@ CREATE TABLE IF NOT EXISTS `static-content` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
---
--- Table content: `static-content`
---
-
-INSERT INTO `static-content` (`id`, `title`, `slug`, `content`) VALUES
-(1, 'Ad activation email', 'ad-activation-email', 'Dear Addresse,\r\n     \r\n\r\nYou created an ad on the $url site. \r\n\r\nTo activate your ad please use the following link: \r\n\r\n$url/ad-activation.php?id=$last&code=$code\r\n\r\nYou can manage your ad by using the links below: \r\n\r\n- modify:  $url/ad-modification.php?id=$last&code=$code\r\n\r\n- expand:  $url/ad-extension.php?id=$last&code=$code\r\n\r\n- delete:  $url/ad-removal.php?id=$last&code=$code\r\n\r\nPlease note that if you are not registered user then you only can manage your ad from this email, so make sure keeping it whilst your ad active!\r\n \r\nIf you want to handle your ads in a more comfortable way then you can register using the following link:\r\n\r\n$url/user-registration.php\r\n\r\n\r\nKing Regards: \r\nThe team of the $site site'),
-(2, 'Ad sending email', 'ad-sending-email', 'Dear $recipient,\r\n   \r\n\r\nI would like to recommend you the following ad found on the $url page:\r\n\r\n$url/ad-list.php?id=$r_id\r\n\r\n\r\nRegards:\r\n$sender '),
-(3, 'Registration email', 'user-registration-email', 'Dear Adresse,\r\n     \r\nYou have registered on the $url site. \r\n\r\nPlease click on the link below to activate your account:\r\n$url/user-registration.php?id=$userid&code=$code \r\n\r\nOnce your account is active, you can log in using this email address or your username and password which are the following: \r\nusername: $username\r\npassword: $password \r\n\r\nKing Regards: \r\nThe team of the $site site'),
-(4, 'Lost password email', 'user-lost-pasword-email', 'Dear ".ucfirst($username)."! \r\n\r\n\r\nThis is a password reminder.\r\n\r\nYou can log in using this email address or your username and password which are the following: \r\nusername: $username\r\npassword: $password \r\n\r\n\r\nKing Regards: \r\nThe team of the $site site');
-
 -- --------------------------------------------------------
 
 --

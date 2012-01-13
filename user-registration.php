@@ -94,7 +94,7 @@ if( isset( $_POST['register'] ) ) {
 		$message = StaticContent::get_content('user-registration-email');		
 		eval( "\$message = \"$message\";" );
 
-		mail( $p_email, "Registration", $message, "From: ".$noreply ); debug($message);
+		mail( $p_email, "Registration", $message, "From: ".$noreply );
 	}
 } else {
 
