@@ -6,15 +6,20 @@ class Table {
 	static $table_columns;
 	static $default_order;
 
+	/*
+	 * This function provide high security against mysql injection if the following criteria are met before it called:
+	 * 1, the key values in the $fields array must not come from unsafe user input or should be checked properly
+	*/	
 	static public function create ( $fields ) {
 
 		global $db;
 	
 		$keys = 'id';
 		$values = "''";
+		
 		foreach( $fields as $key => $value ) {
 			$keys   .= ",$key";
-			$values .= ",'".mysql_real_escape_string($value)."'";
+			$values .= ",'" . escape( $value ) . "'";
 		}
 
         $db->sql = "INSERT INTO ".static::$table_name." ($keys) VALUES ($values);";
@@ -22,7 +27,7 @@ class Table {
 
         $db->sql = "SELECT last_insert_id()";
         $db->query();
-        $rs = mysql_fetch_row($db->rs);
+        $rs = mysqli_fetch_row($db->rs);
         $last = (int)$rs[0];
                
         return $last;
@@ -36,19 +41,24 @@ class Table {
 		return $all;
 	} 
 	
+	/*
+	 * This function provide high security against mysql injection if the following criteria are met before it called:
+	 * 1, the keys in the $filter array must not come from user input or should be checked properly
+	 * 2, the $text_filter, $limit, $order_by parameters should be escaped
+	*/		
 	static public function get_all ( $filters = array(), $text_filter = '', $limit = '', $order_by = '' ) {
 
 		global $db;
 						
 		$filter = '';	
-		foreach( $filters as $key => $value )  $filter .= " AND $key='$value'";
+		foreach( $filters as $key => $value )  $filter .= " AND $key='" . escape( $value ) . "'";
 				
 		if( $text_filter != '' ) $text_filter = "AND $text_filter";
-
-		if ($order_by == '' ) $order_by = static::$default_order;
 				
 		if( $limit != '' ) $limit = "LIMIT $limit";
 
+		if ($order_by == '' ) $order_by = static::$default_order;
+		
 		$db->sql = "SELECT id,".static::$table_columns."
 					FROM ".static::$table_name."
 					WHERE 1=1 $filter $text_filter
@@ -57,17 +67,22 @@ class Table {
 		$db->query();
 
 		$records = array ();	
-		while( $row = mysql_fetch_array( $db->rs ) ) $records[] = $row;
+		while( $row = mysqli_fetch_array( $db->rs ) ) $records[] = $row;
 
 		return $records;
 	}
-	
+
+	/*
+	 * This function provide high security against mysql injection if the following criteria are met before it called:
+	 * 1, the keys in the $filter array must not come from user input or should be checked properly
+	 * 2, the $text_filter parameters should be escaped
+	*/	
 	static public function count( $filters = array(), $text_filter = '' ) {
 
 		global $db;
 				
 		$filter = '';		
-		foreach( $filters as $key => $value ) $filter .= " AND $key='$value'";
+		foreach( $filters as $key => $value ) $filter .= " AND $key='" . escape( $value ) . "'";
 				
 		if( $text_filter != '' ) $text_filter = "AND $text_filter";
 		
@@ -76,7 +91,7 @@ class Table {
 					WHERE 1=1 $filter $text_filter";
 		$db->query();
 
-		$rs = mysql_fetch_row( $db->rs );
+		$rs = mysqli_fetch_row( $db->rs );
 		
 		return $rs[0];	
 	}
@@ -88,15 +103,16 @@ class Table {
 		$update = '';
 		$sep = '';
 		foreach( $fields as $key => $value ) {
-			$update .= "$sep$key='".mysql_real_escape_string($value)."'";
+			$update .= "$sep$key='" . escape( $value ) . "'";
 			$sep = ',';
 		}
 		
 		if ($update != '') {				
 
-			$db->sql = "UPDATE ".static::$table_name."
-						SET $update
-						WHERE id='$id'";					   
+			$db->sql = sprintf( "UPDATE ".static::$table_name."
+						         SET $update
+						         WHERE id=%d",
+						         $id );					   
 			$db->query();
 		}
 	}
@@ -106,15 +122,16 @@ class Table {
 		global $db;
 				
 		$filter = '';		
-		foreach( $filters as $key => $value ) $filter .= " AND $key='$value'";
+		foreach( $filters as $key => $value ) $filter .= " AND $key='" . escape( $value ) . "'";
 
-		$db->sql = "SELECT id 
-					FROM ".static::$table_name." 
-					WHERE id='$id' $filter
-					LIMIT 1";
+		$db->sql = sprintf( "SELECT id 
+					         FROM ".static::$table_name." 
+					         WHERE id=%d $filter
+					         LIMIT 1",
+					         $id );
 		$db->query();
 
-		return mysql_num_rows( $db->rs );	
+		return mysqli_num_rows( $db->rs );	
 	}
 
 	static public function delete( $id, $filters = array() ) {
@@ -122,9 +139,11 @@ class Table {
 		global $db;
 
 		$filter = '';		
-		foreach( $filters as $key => $value ) $filter .= " AND $key='$value'";
+		foreach( $filters as $key => $value ) $filter .= " AND $key='" . escape( $value ) . "'";
 						
-        $db->sql = "DELETE FROM ".static::$table_name." WHERE id='$id' $filter";
+        $db->sql = sprintf( "DELETE FROM ".static::$table_name." 
+                             WHERE id=%d $filter",
+                             $id );
         $db->query();					   
 	}
 
@@ -132,28 +151,33 @@ class Table {
 
 class TreeTable extends Table {
 
+	/*
+	 * This function provide high security against mysql injection if the following criteria are met before it called:
+	 * 1, the key values in the $fields array must not come from unsafe user input or should be checked properly
+	*/	
 	static public function create ( $fields, $parent ) {
 
 		global $db;
 		
 		$keys = 'id,parent';
-		$values = "'',$parent";
+		$values = sprintf( "'', %d", $parent );
+		
 		foreach( $fields as $key => $value ) {
 			$keys   .= ",$key";
-			$values .= ",'".mysql_real_escape_string($value)."'";
+			$values .= ",'" . escape( $value ) . "'";
 		}
-
+		
         $db->sql = "INSERT INTO ".static::$table_name." ($keys) VALUES ($values);";
         $db->query();
 
         $db->sql = "SELECT last_insert_id()";
         $db->query();
-        $rs = mysql_fetch_row($db->rs);
+        $rs = mysqli_fetch_row($db->rs);
         $last = (int)$rs[0];
 
-		$db->sql = "SELECT MAX(`order`) FROM ".static::$table_name." WHERE parent='$parent'";
+		$db->sql = sprintf( "SELECT MAX(`order`) FROM ".static::$table_name." WHERE parent=%d", $parent );
         $db->query();
-        $rs = mysql_fetch_row($db->rs);
+        $rs = mysqli_fetch_row($db->rs);
         $max = (int)$rs[0];	
         	 
         $db->sql = "UPDATE ".static::$table_name." SET `order`='" . ( $max + 1 ) . "' WHERE id='$last'";
@@ -161,14 +185,19 @@ class TreeTable extends Table {
                
         return $last;
 	}
-	
+
+	/*
+	 * This function provide high security against mysql injection if the following criteria are met before it called:
+	 * 1, the keys in the $filter array must not come from user input or should be checked properly
+	 * 2, the $text_filter, $limit, $order_by parameters should be escaped
+	*/	
 	static public function get_all ( $filters = array(), $text_filter = '', $limit = '', $order_by = '' ) {
 
 		global $db;
 						
 		$filter = '';	
-		foreach( $filters as $key => $value )  $filter .= " AND $key='$value'";
-				
+		foreach( $filters as $key => $value )  $filter .= " AND $key='" . escape( $value ) . "'";
+						
 		if( $text_filter != '' ) $text_filter = "AND $text_filter";
 
 		if ($order_by == '' ) $order_by = static::$default_order;
@@ -184,28 +213,36 @@ class TreeTable extends Table {
 		$db->query();
 
 		$records = array ();	
-		while( $row = mysql_fetch_array( $db->rs ) ) $records[] = $row;
+		while( $row = mysqli_fetch_array( $db->rs ) ) $records[] = $row;
 
 		return $records;
 	}
 	
-	static public function get_tree () {
+	static public function get_tree() {
 		
 		global $db;
 		
-		$records = array ();
-		$db->sql = "SELECT id,name,slug,parent FROM ".static::$table_name." WHERE parent='0' ORDER BY `order`";
-		$db->query();
-		while ($row = mysql_fetch_assoc($db->rs)) $records[]=$row;
-		for($i=0;$i<count($records);$i++) {
-			$db->sql = "SELECT id,name,slug,parent FROM ".static::$table_name." WHERE parent='".$records[$i]['id']."' ORDER BY `order`";
-			$db->query();
-			while ($row = mysql_fetch_assoc($db->rs)) $records[$i]['childs'][]=$row;					
+		$records = array();
+		
+		$db->query( "SELECT id,name,slug,parent FROM ".static::$table_name." WHERE parent='0' ORDER BY `order`" );
+		
+		while ($row = mysqli_fetch_assoc($db->rs)) $records[]=$row;
+		
+		$db->prepare( "SELECT id,name,slug,parent FROM ".static::$table_name." WHERE parent=? ORDER BY `order`" );		
+					
+		for( $i=0; $i<count( $records ); $i++ ) {
+			$db->bind_param( 'i', $records[$i]['id']);			
+			$db->execute( GET_RESULT );					
+			while( $row = mysqli_fetch_assoc($db->rs) ) $records[$i]['childs'][]=$row;
 		}
 		
 		return $records;
-	} 
-		
+	}  
+
+	/*
+	 * This function provide high security against mysql injection if the following criteria are met before it called:
+	 * 1, the key values in the $fields array must not come from unsafe user input or should be checked properly
+	*/			
 	static public function update( $id, $fields) {
 
 		global $db;
@@ -213,15 +250,16 @@ class TreeTable extends Table {
 		$update = '';
 		$sep = '';
 		foreach( $fields as $key => $value ) {
-			$update .= "$sep$key='$value'";
+			$update .= "$sep$key='" . escape( $value ) . "'";
 			$sep = ',';
 		}
 		
 		if ($update != '') {			
 
-			$db->sql = "SELECT parent FROM ".static::$table_name." WHERE id='$id'";
+			$db->sql = sprintf( "SELECT parent FROM ".static::$table_name." WHERE id=%d", $id );
 			$db->query();
-			$rs = mysql_fetch_row( $db->rs );
+			
+			$rs = mysqli_fetch_row( $db->rs );
 			$current_parent = (int)$rs[0];
 						
 			$new_order = '';
@@ -231,16 +269,18 @@ class TreeTable extends Table {
 				
 				$new_parent = $fields['parent']; 
 				
-				$db->sql = "SELECT MAX(`order`) FROM ".static::$table_name." WHERE parent='$new_parent'";
+				$db->sql = sprintf( "SELECT MAX(`order`) FROM ".static::$table_name." WHERE parent=%d", $new_parent );
 				$db->query();
-				$rs = mysql_fetch_row( $db->rs );
+				
+				$rs = mysqli_fetch_row( $db->rs );
 				$max = (int)$rs[0];	
 				$new_order = ",`order`='" . ( $max + 1 ) . "'"; 
 			}
 		
-			$db->sql = "UPDATE ".static::$table_name."
-						SET $update $new_order
-						WHERE id='$id'";					   
+			$db->sql = sprintf( "UPDATE ".static::$table_name."
+						         SET $update $new_order
+						         WHERE id=%d",
+						         $id );					   
 			$db->query();
 		}
 	}
@@ -252,20 +292,23 @@ class TreeTable extends Table {
 		$relations = array( '<', '>' );
 		$relation  = $relations[$direction];
 		
-		$db->sql = "SELECT id,`order` FROM ".static::$table_name." WHERE id='$id' AND parent='$parent'";
+		$db->sql = sprintf( "SELECT id,`order` FROM ".static::$table_name." 
+		                     WHERE id=%d AND parent=%d",
+		                     $id, $parent );
 		$db->query();
 		
-		$c = mysql_fetch_row( $db->rs );
+		$c = mysqli_fetch_row( $db->rs );
 		
-		$db->sql = "SELECT id,`order` FROM ".static::$table_name."
-					WHERE `order`$relation'" . $c[1] . "' AND parent='$parent'
-					ORDER BY `order` " . ($relation == '<' ? 'DESC' : 'ASC') . "
-					LIMIT 1";
+		$db->sql = sprintf( "SELECT id,`order` FROM ".static::$table_name."
+					         WHERE `order`$relation'" . $c[1] . "' AND parent=%d
+					         ORDER BY `order` " . ($relation == '<' ? 'DESC' : 'ASC') . "
+					         LIMIT 1",
+					         $parent );
 		$db->query();
 		
-		if( mysql_num_rows( $db->rs ) == 1 ) {
+		if( mysqli_num_rows( $db->rs ) == 1 ) {
 			
-			$n = mysql_fetch_row( $db->rs );
+			$n = mysqli_fetch_row( $db->rs );
 			
 			$db->sql = "UPDATE ".static::$table_name." SET `order`='" . $c[1] . "' WHERE id='" . $n[0] . "'";
 			$db->query();

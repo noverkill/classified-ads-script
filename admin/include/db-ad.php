@@ -46,7 +46,7 @@ class Ad extends Table{
 		$db->query();
 
 		$ads = array ();	
-		while( $row = mysql_fetch_array( $db->rs ) ) {		
+		while( $row = mysqli_fetch_array( $db->rs ) ) {		
 			
 			if ($row['picture'] != '') {
 				$picture = $upload_path . '/' . str_replace('-','/',$row['postedon']) . '/picture/' . $row['picture']; 
@@ -73,31 +73,35 @@ class Ad extends Table{
 		
 		global $db;
 		
-		if ($code != '') $code = " AND code='$code'";
-				
-		$db->sql = "UPDATE ".static::$table_name." SET active='1',activedon=NOW(),lastmodified=NOW() WHERE id='$id' $code";
-		$db->query();
+		if( $code != '' ) $code = "AND code='" . escape( $code ) . "'";
 
-		return mysql_affected_rows();
+		$db->sql = sprintf( "UPDATE ".static::$table_name." 
+		                     SET active='1',activedon=NOW(),lastmodified=NOW() 
+		                     WHERE id=%d $code", 
+		                     $id );
+		$db->query();	
+		
+		return mysqli_affected_rows( $db->rs );
 	}
 
 	static public function update( $id, $fields, $code = '' ) {
 
 		global $db;
 		
-		if ($code != '') $code = " AND code='$code'";
+		if( $code != '' ) $code = "AND code='" . escape( $code ) . "'";
 				
 		$update = '';
 		foreach( $fields as $key => $value ) {
-			if( $key == 'extend') $update .= "expiry=ADDDATE(expiry,'$value'),";
-			else $update .= "$key='$value',";	
+			if( $key == 'extend') $update .= sprintf( "expiry=ADDDATE(expiry,%d),", $value );
+			else $update .= "$key='" . escape( $value ) . "',";	
 		}
 		
 		if ($update != '') {				
 
-			$db->sql = "UPDATE ".static::$table_name."
-						SET $update lastmodified=NOW() 
-						WHERE id='$id' $code";					   
+			$db->sql = sprintf( "UPDATE ".static::$table_name."
+						         SET $update lastmodified=NOW() 
+						         WHERE id=%d $code",
+						         $id );					   
 			$db->query(); 
 		}
 	}

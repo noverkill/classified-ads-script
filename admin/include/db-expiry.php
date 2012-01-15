@@ -10,17 +10,19 @@ class Expiry extends Table{
 
 		global $db;
 
-        $db->sql = "INSERT INTO ".static::$table_name." (id,name,period) VALUES ('','$name','$period');";
+        $db->sql = sprintf( "INSERT INTO ".static::$table_name." (id, name, period) 
+                             VALUES ('', %s, %d);", 
+                             escape( $name ), $period );
         $db->query();
 
         $db->sql = "SELECT last_insert_id()";
         $db->query();
-        $rs = mysql_fetch_row($db->rs);
+        $rs = mysqli_fetch_row($db->rs);
         $last = (int)$rs[0];
         
 		$db->sql = "SELECT MAX(`order`) FROM ".static::$table_name;
         $db->query();
-        $rs = mysql_fetch_row($db->rs);
+        $rs = mysqli_fetch_row($db->rs);
         $max = (int)$rs[0];	
         	 
         $db->sql = "UPDATE ".static::$table_name." SET `order`='" . ( $max + 1 ) . "' WHERE id='$last'";

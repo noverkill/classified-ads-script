@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `favourite` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `ad_id` (`ad_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin2 ;
 
 -- --------------------------------------------------------
 
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `bejnev` (`username`),
   KEY `jelszo` (`password`),
   KEY `aktiv` (`active`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 --
 -- Table content: `user`

@@ -15,7 +15,7 @@ class User extends Table {
 
 		$menu = array();
 		
-		while( $table = mysql_fetch_row( $db->rs ) ) {
+		while( $table = mysqli_fetch_row( $db->rs ) ) {
 			$table_name = $table[0];
 			$Table_name = ucwords( str_replace( '-', ' ', $table_name ) );
 			$menu[$Table_name] = array ( 'List' => "$table_name-list.php", 'Edit' => "$table_name-edit.php", 'Create' => "$table_name-create.php" );

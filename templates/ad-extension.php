@@ -1,8 +1,6 @@
 <?include('./templates/parts/page-top.php')?>
 
 <?
-include('./templates/parts/error-panel.php');
-
 if($ad_exists):	
 	if(isset($_POST['extension'])):		
 		if($success):

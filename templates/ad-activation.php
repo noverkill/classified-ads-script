@@ -1,4 +1,4 @@
-<?include('page-top.php')?>
+<?include('./templates/parts/page-top.php')?>
 
 <?
 if($success):
