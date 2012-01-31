@@ -2,7 +2,7 @@
 
 error_reporting( E_ALL & ~E_STRICT );
 
-ini_set( 'display_errors', '1' ); 										
+ini_set( 'display_errors', '0' ); 										
 
 date_default_timezone_set( 'America/Chicago' );	// set the timezone of the server the script runs on, if not sure, do not touch and do not comment it out!
 
@@ -18,8 +18,8 @@ $noreply          = 'your-noreply-email';		// noreply email address for your sit
 
 $db_host          = 'localhost'; 				// the name of the db host, this depend on your hosting provider but usually localhost 
 $db_name          = 'classified'; 				// name of the database prepared to use by this script e.g. classified
-$db_user          = 'root';    					// the name of the db user who can acces to the database with all privileges
-$db_pass          = '';							// the password of the above db user
+$db_user          = 'your-database-user';    	// the name of the db user who can acces to the database with all privileges
+$db_pass          = 'your-database-password';	// the password of the above db user
 
 $currency         = '$';						// the currency symbol you intend to use e.g. USD, $, EUR etc..
 
