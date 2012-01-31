@@ -1,11 +1,49 @@
 <?php
+/**
+ * Classified-ads-script
+ *
+ * @copyright  Copyright (c) Szilard Szabo
+ * @license    GPL v3
+ * @version    $Id: db-ad.php
+ */
 
+/**
+ * The MySQL table interface for the Ad table
+ */
 class Ad extends Table{
 
-	static $table_name    = 'ad';
-	static $table_columns = 'user_id, name, email, telephone, title, description, picture, category, price, city, region, postedon, expiry, webpage, order, active, code, activedon, sponsored, sponsoredon, expirednotice, ipaddr, lastmodified';
-	static $default_order = 'ORDER BY sponsored DESC, lastmodified DESC';
+	/**
+	 * The name of the MySQL table
+	 *
+	 * @var string
+	 */
+	protected static $table_name = 'ad';
 	
+	/**
+	 * The array of the MySQL table's column names
+	 *
+	 * @var string
+	 */
+	protected static $table_columns = 'user_id, name, email, telephone, title, description, picture, category, price, city, region, postedon, expiry, webpage, order, active, code, activedon, sponsored, sponsoredon, expirednotice, ipaddr, lastmodified';
+	
+	/**
+	 * The default order e.g. 'ORDER BY id DESC'
+	 *
+	 * @var string
+	 */
+	protected static $default_order = 'ORDER BY sponsored DESC, lastmodified DESC';
+
+
+	/**
+	 * Get all records from the ad regarding the given filters
+	 * Set the picture and thumb value for every record.
+	 * 
+	 * @param 	array 	$filters[optional]			Key value pairs for filtering the result.
+	 * @param 	string 	$text_filter[optional]		Sql expression needs to be inserted to the WHERE clause of the query.
+	 * @param 	int 	$limit[optional]			Number of rows needs to be returned.
+	 * @param 	string 	$order_by[optional]			The designated row order. If not given then the table's default order vill be used.
+	 * @return 	array 								The result rows as array.
+	 */
 	static public function get_all ( $filters = array(), $text_filter = '', $limit = '', $order_by = '' ) {
 
 		global $db, $upload_path;
@@ -68,7 +106,13 @@ class Ad extends Table{
 		
 		return $ads;
 	}
-		
+
+	/**
+	 * Activate the ad
+	 *
+	 * @param int 		$id					The ad's id.
+	 * @param string 	$code[optional]		The ad's activation code.
+	 */
 	static public function activate ($id, $code = '') {
 		
 		global $db;
@@ -83,7 +127,14 @@ class Ad extends Table{
 		
 		return mysqli_affected_rows( $db->rs );
 	}
-
+	
+	/**
+	 * Update record in the ad table. 
+	 *
+	 * @param int 		$id					The ad's id.
+	 * @param array 	$fields				Column-name => value pairs for updating.
+	 * @param string 	$code[optional]		The ad's activation code.
+	 */
 	static public function update( $id, $fields, $code = '' ) {
 
 		global $db;

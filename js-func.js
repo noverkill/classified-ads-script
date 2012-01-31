@@ -1,3 +1,13 @@
+
+/**
+ * Classified-ads-script
+ * 
+ * JS functions
+ * 
+ * @copyright  Copyright (c) Szilard Szabo
+ * @license    GPL v3
+ */
+ 
 function setCookie(c_name,value,exdays) {
 	var exdate=new Date();
 	exdate.setDate(exdate.getDate() + exdays);

@@ -1,5 +1,17 @@
 <?php
-	
+/**
+ * Classified-ads-script
+ * 
+ * This file contains reusable code for picture uploading,
+ * and should be included where this functionality
+ * is needed.
+ * 
+ * @copyright  Copyright (c) Szilard Szabo
+ * @license    GPL v3
+ * @package    Thumbnail_generation
+ * @version    $Id: picture-upload.php
+ */
+
 if( $p_picture['size'] === 0 ) {
 	$success = false;
 	array_push( $errors, "Bad file." );
