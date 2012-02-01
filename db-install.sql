@@ -19,6 +19,9 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Database: `classified`
 --
 
+CREATE DATABASE IF NOT EXISTS classified CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE classified;
+
 -- --------------------------------------------------------
 
 --

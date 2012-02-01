@@ -17,11 +17,11 @@ $admin_mail       = 'your-admin-email';			// site admin email address, system me
 $noreply          = 'your-noreply-email';		// noreply email address for your site, system messages will be sent from this address
 
 $db_host          = 'localhost'; 				// the name of the db host, this depend on your hosting provider but usually localhost 
-$db_name          = 'your-database-name'; 		// name of the database prepared to use by this script e.g. classified
+$db_name          = 'classified'; 				// name of the database prepared to use by this script e.g. classified
 $db_user          = 'your-database-user';    	// the name of the db user who can acces to the database with all privileges
 $db_pass          = 'your-database-password';	// the password of the above db user
 
-$currency         = '£';						// the currency symbol you intend to use e.g. USD, $, EUR etc..
+$currency         = '$';						// the currency symbol you intend to use e.g. USD, $, EUR etc..
 
 session_start();
 header( 'Content-Type: text/html; charset=UTF-8' );

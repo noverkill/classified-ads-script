@@ -1,4 +1,19 @@
 <?php 
+/**
+ * Classified-ads-script
+ *
+ * This file contains the initialization code of the
+ * system and all the common functions which should 
+ * be accessible from anywhere.
+ * 
+ * @copyright  Copyright (c) Szilard Szabo
+ * @license    GPL v3
+ * @version    $Id: common.php
+ */
+
+/**
+ * Initialization
+ */
 
 $docroot = realpath( dirname( __FILE__ ) );
 
@@ -45,43 +60,13 @@ if( strpos( $current_script_name, '-' ) > 0 ) {
 	$current_sub_page   = array ( 'name' => '', 'script' => '' ); 	
 }
 
-/**
- * Function for build and modify the query string.
- * 
- * The function build the query string based on the contents of the $_GET superglobal array 
- * and it can be modified with the content of the input array by the following rules:
- * Every element in the input array
- * 1, (ADD) which has non-existent key in the query string and has no -1 value will be added to the query string.
- * 2, (MODIFY) whose key is already in the query string and has no -1 value will be overwritten with its value in the query string. 
- * 3, (DELETE) whose key is already in the query string and has -1 value will be deleted from the query string.
- *
- * @since version 1.0.0.
- *
- * @param    array    $values    The array which the query string will be based on
- * @return   string              The created query string
- */
-function build_query_string( $values ) {
-	
-	$get = array ();
-	
-	if( isset( $_GET ) ) $get = $_GET;
-	 
-	foreach( $values as $key => $value ) {
-		if( $value > -1 ) $get[$key] = $value;
-		else unset( $get[$key] );
-	}
-	
-	$query_string = http_build_query( $get, '', '&amp;');
-		
-	return $query_string;
-	
-}
 
 /**
- * Function to create a html link 
- *
- * @since version 1.0.0.
- *
+ * Common function
+ */
+
+/**
+ * Function to create html link 
  * 
  * @param    string    $url       The url of the link
  * @param    string    $target    The target of the link
@@ -101,9 +86,6 @@ function create_web_link( $url, $target = '', $title = '' ) {
 /**
  * Function to create a html mailto link 
  *
- *
- * @since version 1.0.0.
- *
  * @param    string    $mail_address	The url of the link
  * @param    string    $title     		The title of the link
  * @return   string               		String contains the html mailto link
@@ -118,9 +100,6 @@ function create_mail_link( $mail_address, $title = '' ) {
 
 /**
  * Get host name from the url
- *
- *
- * @since version 1.0.0.
  *
  * @param    string    $url			
  * @return   string               host name
@@ -147,9 +126,6 @@ function get_host_from_url ($url) {
 /**
  * Create slug
  *
- *
- * @since version 1.0.0.
- *
  * @param    string    $str			The string which we need to make a slug from-	
  * @param    string    $delimiter	The delimitier we need to use between words. Optional. Default: -		
  * @return   string                 The created slug.
@@ -174,9 +150,7 @@ function slug ($str, $delimiter='-') {
  * The function takes the number provided in the input parameter
  * format it as a currency using the $currency configuration constant
  * from the config.php and return as a string  
- *
- * @since version 1.0.0.
- *
+ * 
  * @param    string    $str			The number which we need to format as a currency		
  * @return   string                 The formatted string.
  */ 
@@ -208,20 +182,41 @@ function str_to_currency ($str) {
 }
 
 /**
- * the function can print out the contents of a variable or an 
- * object for debbuging purpose.
- * 
- * 
- * The purpose of this function is to make a formatted, transparent
- * appearance for the output of the print_r function.
- * So this function put the neccesary html tags around the output and 
- * it also possible to add a title for it.
- * 
- * 
- * @since version 1.0.0.
+ * Function to build and modify the query string.
  *
- * @param    string    $var			The var needs to be debugged
- * @param    string    $title       The optional title for the debug
+ * This function build a query string based on the $_GET superglobal array.
+ * This query string can be modified with the content of the $values array by the following rules:
+ * Every element in the input array
+ * 1, (ADD) which has non-existent key in the query string and has no -1 value will be added to the query string.
+ * 2, (MODIFY) whose key is already in the query string and has no -1 value will be overwritten with its value in the query string.
+ * 3, (DELETE) whose key is already in the query string and has -1 value will be deleted from the query string.
+ *
+ * @param    array    $values    The array which the query string will be based on
+ * @return   string              The created query string
+ */
+function build_query_string( $values ) {
+
+	$get = array ();
+
+	if( isset( $_GET ) ) $get = $_GET;
+
+	foreach( $values as $key => $value ) {
+		if( $value > -1 ) $get[$key] = $value;
+		else unset( $get[$key] );
+	}
+
+	$query_string = http_build_query( $get, '', '&amp;');
+
+	return $query_string;
+
+}
+
+/**
+ * The function dump out the contents of a variable or object
+ * as a formatted html output for debbuging purpose.
+ * 
+ * @param    string    $var					The var needs to be debugged
+ * @param    string    $title[optional]     The optional title for the debug
  */ 
 function debug( $var, $title='' ) {	
 	if( $title != '' ) print $title.'<br />';

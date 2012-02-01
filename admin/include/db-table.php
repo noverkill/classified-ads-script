@@ -1,19 +1,57 @@
 <?php
+/**
+ * Classified-ads-script
+ *
+ * @copyright  Copyright (c) Szilard Szabo
+ * @license    GPL v3
+ * @version    $Id: db-table.php
+ */
 
-class Table {
+/**
+ * The absctract base class for MySQL table interface.
+ * 
+ * Note:	Although the class designed to provide maximum security against sql injection, 
+ * 			some of its method having any of the following parameters needs further check
+ * 			before calling: $fields, $filters, $text_filter, $order_by.  
+ *  		These parameters needs to be properly checked/escaped before method call. 
+ *  		In the case of $fields/$filters parameter the above only apply to the keys 
+ *  		of the array.
+ * 
+ */
+abstract class Table {
+
+	/**
+	 * The name of the MySQL table
+	 *
+	 * @var string
+	 */
+	protected static $table_name;
+
+	/**
+	 * The MySQL table's column names e.g. 'id,name,slug'
+	 *
+	 * @var string
+	 */
+	protected static $table_columns;
 	
-	static $table_name;
-	static $table_columns;
-	static $default_order;
+	/**
+	 * The default order e.g. 'ORDER BY id DESC'
+	 *
+	 * @var string
+	 */	
+	protected static $default_order;
 
-	/*
-	 * This function provide high security against mysql injection if the following criteria are met before it called:
-	 * 1, the key values in the $fields array must not come from unsafe user input or should be checked properly
-	*/	
+	
+	/**
+	 * Insert new record to the db table
+	 * 
+	 * @param array 	$fields		Column-name => value pairs to create insert query.
+	 * @return int					The id of the newly created record.
+	 */
 	static public function create ( $fields ) {
 
 		global $db;
-	
+
 		$keys = 'id';
 		$values = "''";
 		
@@ -32,7 +70,14 @@ class Table {
                
         return $last;
 	}
-							
+	
+	/**
+	 * Get one record from the table 
+	 * 
+	 * @param 	int 	$id							The record's id.
+	 * @param 	array 	$filters[optional]			Key value pairs for filtering the result. e.g. array('price'=>100) means 'AND price=100'.
+	 * @return 	array								The result row as array.
+	 */
 	static public function get_one ( $id, $filters = array()) {
 		
 		$filter = array_merge( $filters, array( 'id' => $id ) );
@@ -40,12 +85,16 @@ class Table {
 		$all = isset( $all[0] ) ? $all[0] : array();
 		return $all;
 	} 
-	
-	/*
-	 * This function provide high security against mysql injection if the following criteria are met before it called:
-	 * 1, the keys in the $filter array must not come from user input or should be checked properly
-	 * 2, the $text_filter, $limit, $order_by parameters should be escaped
-	*/		
+		
+	/**
+	 * Get all records from the table regarding the given filters
+	 * 
+	 * @param 	array 	$filters[optional]			Key value pairs for filtering the result.
+	 * @param 	string 	$text_filter[optional]		Sql expression needs to be inserted to the WHERE clause of the query.
+	 * @param 	int 	$limit[optional]			Number of rows needs to be returned.
+	 * @param 	string 	$order_by[optional]			The designated row order. If not given then the table's default order vill be used.
+	 * @return 	array 								The result rows as array.
+	 */
 	static public function get_all ( $filters = array(), $text_filter = '', $limit = '', $order_by = '' ) {
 
 		global $db;
@@ -71,12 +120,14 @@ class Table {
 
 		return $records;
 	}
-
-	/*
-	 * This function provide high security against mysql injection if the following criteria are met before it called:
-	 * 1, the keys in the $filter array must not come from user input or should be checked properly
-	 * 2, the $text_filter parameters should be escaped
-	*/	
+		
+	/**
+	 * Returns the count of records match to the given filters
+	 * 
+	 * @param 	array 	$filters[optional]			Key value pairs for filtering the result.
+	 * @param 	string 	$text_filter[optional]		Sql expression needs to be inserted to the WHERE clause of the query.
+	 * @return 	int									Record count.
+	 */
 	static public function count( $filters = array(), $text_filter = '' ) {
 
 		global $db;
@@ -96,6 +147,12 @@ class Table {
 		return $rs[0];	
 	}
 
+	/**
+	 * Update record in the table
+	 * 
+	 * @param int 		$id			The record's id.
+	 * @param array 	$fields		Column name => value pairs for updating.
+	 */
 	static public function update( $id, $fields ) {
 
 		global $db;
@@ -116,7 +173,14 @@ class Table {
 			$db->query();
 		}
 	}
-	
+
+	/**
+	 * Check if the record exists in the table
+	 *
+	 * @param 	int 	$id						Record's id.
+	 * @param 	array 	$filters[optional]		Key value pairs for filtering the result.
+	 * @return	int								1 if the record exists, 0 otherwise.
+	 */
 	static public function exists( $id, $filters = array() ) {
 
 		global $db;
@@ -134,6 +198,12 @@ class Table {
 		return mysqli_num_rows( $db->rs );	
 	}
 
+	/**
+	 * Delete record from the table
+	 *
+	 * @param 	int 	$id						Record's id
+	 * @param 	array 	$filters[optional]		Key value pairs for filtering the result.
+	 */
 	static public function delete( $id, $filters = array() ) {
 
 		global $db;
@@ -149,12 +219,19 @@ class Table {
 
 }
 
-class TreeTable extends Table {
 
-	/*
-	 * This function provide high security against mysql injection if the following criteria are met before it called:
-	 * 1, the key values in the $fields array must not come from unsafe user input or should be checked properly
-	*/	
+/**
+ * The abstract base class for MySQL hierarchical table interface
+ */
+abstract class TreeTable extends Table {
+
+	/**
+	 * Insert new record to the table
+	 *
+	 * @param	array 	$fields		Column-name => value pairs to create insert query.
+	 * @param 	int		$parent		The id of the parent record.
+	 * @return 	int					The id of the newly created record.
+	 */
 	static public function create ( $fields, $parent ) {
 
 		global $db;
@@ -185,12 +262,16 @@ class TreeTable extends Table {
                
         return $last;
 	}
-
-	/*
-	 * This function provide high security against mysql injection if the following criteria are met before it called:
-	 * 1, the keys in the $filter array must not come from user input or should be checked properly
-	 * 2, the $text_filter, $limit, $order_by parameters should be escaped
-	*/	
+	
+	/**
+	 * Get all records from the table regarding the given filters
+	 *
+	 * @param 	array 	$filters[optional]			Key value pairs for filtering the result.
+	 * @param 	string 	$text_filter[optional]		Sql expression needs to be inserted to the WHERE clause of the query.
+	 * @param 	int 	$limit[optional]			The number of rows needs to be returned.
+	 * @param 	string 	$order_by[optional]			The designated row order. If not given then the table's default order vill be used.
+	 * @return 	array 								The result rows as array. Every row contains its childcount.
+	 */
 	static public function get_all ( $filters = array(), $text_filter = '', $limit = '', $order_by = '' ) {
 
 		global $db;
@@ -218,6 +299,35 @@ class TreeTable extends Table {
 		return $records;
 	}
 	
+	/**
+	 * Get all records from the table as a tree structure
+	 * 
+	 * @return array	The array contains the tree.
+	 * 
+	 * Example of return array:
+	 * <code>
+	 * Array
+	 * (
+	 *     [0] => Array
+	 *         (
+	 *             [id] => 1
+	 *             [name] => Root node
+	 *             [slug] => root-node
+	 *             [parent] => 0
+	 *             [childs] => Array
+	 *                 (
+	 *                     [0] => Array
+	 *                         (
+	 *                             [id] => 2
+	 *                             [name] => Child node
+	 *                             [slug] => chld-node
+	 *                             [parent] => 1
+	 *                         )
+	 *                 )
+	 *         )
+	 * )
+	 * </code>
+	 */
 	static public function get_tree() {
 		
 		global $db;
@@ -237,12 +347,16 @@ class TreeTable extends Table {
 		}
 		
 		return $records;
-	}  
+	}  	
 
-	/*
-	 * This function provide high security against mysql injection if the following criteria are met before it called:
-	 * 1, the key values in the $fields array must not come from unsafe user input or should be checked properly
-	*/			
+	/**
+	 * Update record in the table
+	 * 
+	 * Note: This function is suitable to change the parent of the node.
+	 *
+	 * @param int 		$id			The record's id.
+	 * @param array 	$fields		Column name => value pairs for updating.
+	 */
 	static public function update( $id, $fields) {
 
 		global $db;
@@ -285,6 +399,18 @@ class TreeTable extends Table {
 		}
 	}
 
+	/**
+	 * Move the record up/down by one in the child's sequence
+	 * 
+	 * Note: This function is not suitable to change the parent of the node.
+	 * 
+	 * Todo: rename the function to 'move' maybe more meaningful?
+ 	 *		 the $direction parameter can be a string 'up' or 'down'?
+	 * 
+	 * @param int 		$id			The record's id.
+	 * @param int 		$parent		The parent's id.
+	 * @param int 		$direction	The direction: 0 => up, 1 => down.
+	 */
 	public static function set_order( $id, $parent, $direction ) {
 
 		global $db;
