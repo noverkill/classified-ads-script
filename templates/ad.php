@@ -1,12 +1,14 @@
 <?include('./templates/parts/page-top.php')?>
 
 <?
+
+$panels = array(); 
+	
 if($exists):	
+
 	$fields = array(
 		array('id'       ,'Id'),
 		array('pricec'   ,'Price'),
-		array('name'     ,'Posted by'),
-		array('emailto'  ,'Email'),
 		array('telephone','Telephone'),
 		array('weblink'  ,'Webpage'),
 		array('postedon' ,'Posted on'),
@@ -18,6 +20,7 @@ if($exists):
 	foreach($fields as $field):
 		if($ad[$field[0]]!='') $row[] = array('title'=>$field[1],'value'=>$ad[$field[0]]);
 	endforeach;
+
 endif;
 ?>
 
@@ -65,19 +68,32 @@ endif;
 							<td><?=$r['value']?></td>
 						</tr>
 						<?endforeach?>
+						<tr>
+							<td>Posted by</td>
+							<td>
+								<?php 
+									if($ad['user_id']>0)echo"<a href='user-view.php?id=" . $ad['user_id'] . "'>" . $ad['name'] . "</a>";
+									else echo $ad['name'];
+								?>
+							</td>
+						</tr>
 					</table>
 			
 				</div>
 				
 				<?$qry = build_query_string(array('id'=>$ad['id']))?>	
 				<div class="usertools">	
+					<a href="ad-print.php?<?=$qry?>">Print</a>
+					<a href="ad-sending.php?<?=$qry?>">Send by Email</a>
+					<a href="ad-respond.php?<?=$qry?>">Respond</a>
+					<a href="ad-review.php?<?=$qry?>">Review</a>
+					
 					<?if(! $is_favourite):?>
 						<a href="user-favourites.php?<?=$qry?>">Add to favourites</a>
 					<?else:?>
 						<a href="user-favourites.php?remove=1&amp;<?=$qry?>">Remove from favourites</a>		
 					<?endif?>
-					<a href="ad-sending.php?<?=$qry?>">Send by Email</a>
-					<a href="ad-print.php?<?=$qry?>">Print</a>
+					
 					<?if(User::is_logged_in() && (User::get_email()==$ad['email'] || User::get_id()==1)): 
 						$qry = build_query_string(array('id'=>$ad['id'],'code'=>$ad['code']));
 					?>
@@ -87,17 +103,22 @@ endif;
 							<a onclick="return confirm('Are you sure you want to remove?')" href="ad-removal.php?<?=$qry?>">Remove</a>				
 						</p>
 					<?endif?>	
+				
 				</div>
 							
-			</div>
+			</div><!-- end of ad-data -->
+						
+		</div><!-- end of ad-view -->
 		
-		</div>
+		<br class="clear" />
 
+		<?php include('./templates/parts/reviews.php') ?>
+						
 	<?else:
 			
 		$panels = array(array(
 			'legend' => 'Error',
-			'body'   => "<ul class='errors'>The requested Ad is inactive or not exist!</ul>",
+			'body'   => "<ul class='errors'>The requested Ad is inactive or not exist.</ul>",
 		) );
 		
 		include('./templates/parts/panels.php');

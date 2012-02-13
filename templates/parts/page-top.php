@@ -20,6 +20,7 @@
 	<link rel='stylesheet' href='css/form.css'    type='text/css' media='screen' />
 	<link rel='stylesheet' href='css/panel.css'   type='text/css' media='screen' />
 	<link rel='stylesheet' href='css/ad.css'      type='text/css' media='screen' />
+	<link rel='stylesheet' href='css/review.css'  type='text/css' media='screen' />
 	<link rel='stylesheet' href='css/footer.css'  type='text/css' media='screen' />
 		
 	<script type="text/javascript" src="js-func.js"></script>

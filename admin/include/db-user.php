@@ -20,7 +20,7 @@ class User extends Table {
 	protected static $table_name = 'user';
 	
 	/**
-	 * The MySQL table's column names e.g. 'id,name,slug'
+	 * The MySQL table's column names e.g. 'name,slug'
 	 *
 	 * @var string
 	 */

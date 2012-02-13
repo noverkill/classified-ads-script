@@ -14,12 +14,12 @@ include("./include/common.php");
 $current_group_page['name'] = 'Static Content';
 $current_sub_page['name']   = 'Edit';
 
+$g_id   = isset( $_REQUEST['id'] ) ? (int) $_REQUEST['id'] : 0;
+
 if ( ! User::is_logged_in() || User::get_id() != 1) {
 	header( 'Location: index.php' );
 	exit();
 }
-
-$g_id   = isset( $_REQUEST['id'] ) ? (int) $_REQUEST['id'] : 0;
 
 $static = StaticContent::get_one( $g_id );
 

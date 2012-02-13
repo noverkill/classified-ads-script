@@ -19,17 +19,17 @@ if ( ! User::is_logged_in() || User::get_id() != 1) {
 
 if (isset($_GET['d'])) {
     $d = (int)$_GET['d'];
-    if ($d > 5) StaticContent::delete( $d );  
+    AdReview::delete( $d );  
 }
 
-$tct = StaticContent::count(); 	//total count
-$rpp = 10; 						//row per page
+$tct = AdReview::count(); 	//total count
+$rpp = 10; 					//row per page
 
 $pager_options = array('mode' => 'Sliding', 'perPage' => $rpp, 'delta' => 2, 'totalItems' => $tct, 'excludeVars' => array( 'o', 'r', 'd', 't', 'e' ) );
 $pager = @Pager::factory($pager_options);
 list($from, $to) = $pager->getOffsetByPageId();
 
-$statics = StaticContent::get_all( array(), '', ( $from - 1 ) . ", $rpp" );
+$reviews = AdReview::get_all( array(), '', ( $from - 1 ) . ", $rpp" );
 
 include ("page-header.php"); 
 
@@ -49,25 +49,27 @@ include ("page-header.php");
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Title</th>
-					<th>Slug</th>
+					<th>Ad id</th>
+					<th>User id</th>
+					<th>Rate</th>
 					<th>Operations</th>
 				</tr>
 			</thead>
 			<tbody>	
 				<?php
-				if ($tct < 1) print "<tr><td colspan='4'>No records.</td></tr>";
-				foreach( $statics as $row ) {
+				if ($tct < 1) print "<tr><td colspan='5'>No records.</td></tr>";
+				foreach( $reviews as $row ) {
 				?>
 					<tr>
 						<?php
 							print "<td>" . $row['id'] . "</td>";
-							print "<td>" . $row['title'] . "</td>";
-							print "<td>" . $row['slug'] . "</td>";
+							print "<td><a href='ad-edit.php?id=" . $row['ad_id'] . "'>" . $row['ad_id'] . "</a></td>";
+							print "<td><a href='user-edit.php?id=" . $row['user_id'] . "'>" . $row['user_id'] . "</a></td>";
+							print "<td>" . $row['rate'] . "</td>";
 						?>	
 						<td>
-							<a href=<?php print 'static-content-edit.php?' . build_query_string( array( 'id' => $row[0] ) ); ?>>Edit</a>		
-							<?php if( $row[0] > 5 ) { ?><a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . "?d=" . $row[0] . "&t=" . time() . "#table'"; ?> onclick="return confirm ('Are you sure to delete?')">Delete</a><?php } ?>
+							<a href=<?php print 'ad_review-edit.php?' . build_query_string( array( 'id' => $row[0] ) ); ?>>Edit</a>		
+							<a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . "?d=" . $row[0] . "&t=" . time() . "#table'"; ?> onclick="return confirm ('Are you sure to delete?')">Delete</a>
 						</td>	
 					</tr>
 				<?php

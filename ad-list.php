@@ -2,8 +2,6 @@
 /**
  * Classified-ads-script
  * 
- * Admin area
- * 
  * @copyright  Copyright (c) Szilard Szabo
  * @license    GPL v3
  * @package    Frontend
@@ -60,20 +58,22 @@ if( $g_list != '' ) {
 } else {
 
 	$or_filter = '';
+	
+	$gs_description = escape( $g_description . '%' );
+	
+	if( $g_in_description ) $or_filter .= " OR description LIKE '$gs_description'";
 
-	if( $g_in_description ) $or_filter .= " OR description LIKE '{$g_description}%'";
+	if( $g_in_title )       $or_filter .= " OR title LIKE '$gs_description'";
 
-	if( $g_in_title )       $or_filter .= " OR title LIKE '{$g_description}%'";
+	if( $g_in_name )        $or_filter .= " OR name LIKE '$gs_description'";
 
-	if( $g_in_name )        $or_filter .= " OR name LIKE '{$g_description}%'";
+	if( $g_in_city )        $or_filter .= " OR city LIKE '$gs_description'";
 
-	if( $g_in_city )        $or_filter .= " OR city LIKE '{$g_description}%'";
+	if( $g_in_email )       $or_filter .= " OR email LIKE '$gs_description'";
 
-	if( $g_in_email )       $or_filter .= " OR email LIKE '{$g_description}%'";
-
-	if( $g_in_webpage )     $or_filter .= " OR webpage LIKE '{$g_description}%'";
+	if( $g_in_webpage )     $or_filter .= " OR webpage LIKE '$gs_description'";
 							
-	if( $g_in_id )          $or_filter .= " OR id LIKE '{$g_description}%'";
+	if( $g_in_id )          $or_filter .= " OR id LIKE '$gs_description'";
 
 	if( $or_filter != '' ) $filter .= " AND (1=2 $or_filter)";
 

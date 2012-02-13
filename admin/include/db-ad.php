@@ -24,7 +24,7 @@ class Ad extends Table{
 	 *
 	 * @var string
 	 */
-	protected static $table_columns = 'user_id, name, email, telephone, title, description, picture, category, price, city, region, postedon, expiry, webpage, order, active, code, activedon, sponsored, sponsoredon, expirednotice, ipaddr, lastmodified';
+	protected static $table_columns = 'user_id, name, email, telephone, title, description, picture, category, price, city, region, postedon, expiry, webpage, `order`, active, code, activedon, sponsored, sponsoredon, expirednotice, ipaddr, lastmodified';
 	
 	/**
 	 * The default order e.g. 'ORDER BY id DESC'
@@ -34,6 +34,32 @@ class Ad extends Table{
 	protected static $default_order = 'ORDER BY sponsored DESC, lastmodified DESC';
 
 
+	/**
+	 * Get one record from the table 
+	 * 
+	 * @param 	int 	$id							The record's id.
+	 * @param 	array 	$filters[optional]			Key value pairs for filtering the result. e.g. array('price'=>100) means 'AND price=100'.
+	 * @return 	array								The result row as array.
+	 */
+	static public function get_one ( $id, $filters = array()) {
+		
+		$filter = array_merge( $filters, array( 'id' => $id ) );
+		$all = static::get_all( $filter, '', '1' );
+		
+		$ad = array();
+		
+		if( isset ( $all[0] ) ) {
+			
+			$ad = $all[0];
+			
+			$user = User::get_one( 0, array( 'email' => $ad['email'] ) );
+			
+			$ad['user_id'] = isset( $user['id'] ) ? $user['id'] : 0; 
+		}
+		
+		return $ad;
+	} 
+	
 	/**
 	 * Get all records from the ad regarding the given filters
 	 * Set the picture and thumb value for every record.
@@ -57,8 +83,7 @@ class Ad extends Table{
 				
 		if( $limit != '' ) $limit = "LIMIT $limit";
 		
-		$db->sql = "SELECT  id,name,email,title,description,price,telephone,webpage,picture,city,
-		                    postedon,lastmodified,expiry,code,active,sponsored,sponsoredon,     
+		$db->sql = "SELECT id,".static::$table_columns.",  
 					(SELECT r.parent FROM category r WHERE r.id=category) as category_parent,
 					(SELECT r.id FROM category r WHERE r.id=category) as category_id1, 
 					(SELECT r.id FROM category r WHERE r.id=category_parent) as category_id2,
@@ -124,8 +149,8 @@ class Ad extends Table{
 		                     WHERE id=%d $code", 
 		                     $id );
 		$db->query();	
-		
-		return mysqli_affected_rows( $db->rs );
+
+		return mysqli_affected_rows( $db->conn );
 	}
 	
 	/**

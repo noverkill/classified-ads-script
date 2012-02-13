@@ -2,8 +2,6 @@
 /**
  * Classified-ads-script
  * 
- * Admin area
- * 
  * @copyright  Copyright (c) Szilard Szabo
  * @license    GPL v3
  * @package    Frontend

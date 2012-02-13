@@ -11,7 +11,7 @@
 
 include( "./include/common.php");
 
-if ( ! User::is_logged_in() || User::get_id() != 1) {
+if ( ! User::is_logged_in() || User::get_id() != 1 || ! User::exists( 1 ) ) {
 	header( 'Location: index.php' );
 	exit();
 }

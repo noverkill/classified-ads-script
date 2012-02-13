@@ -28,7 +28,10 @@ abstract class Table {
 	protected static $table_name;
 
 	/**
-	 * The MySQL table's column names e.g. 'id,name,slug'
+	 * The MySQL table's column names e.g. 'name,slug'
+	 * 
+	 * Note: All table must have a primary key named 'id' and
+	 *       that must be excluded from $table_columns! 
 	 *
 	 * @var string
 	 */
@@ -79,9 +82,12 @@ abstract class Table {
 	 * @return 	array								The result row as array.
 	 */
 	static public function get_one ( $id, $filters = array()) {
+
+		$id = (int) $id;
 		
-		$filter = array_merge( $filters, array( 'id' => $id ) );
-		$all = static::get_all( $filter, '', '1' );
+		if( $id > 0 ) $filters['id'] = $id;
+				
+		$all = static::get_all( $filters, '', '1' );
 		$all = isset( $all[0] ) ? $all[0] : array();
 		return $all;
 	} 
@@ -100,9 +106,9 @@ abstract class Table {
 		global $db;
 						
 		$filter = '';	
-		foreach( $filters as $key => $value )  $filter .= " AND $key='" . escape( $value ) . "'";
+		foreach( $filters as $key => $value ) $filter .= " AND $key='" . escape( $value ) . "'";
 				
-		if( $text_filter != '' ) $text_filter = "AND $text_filter";
+		if( $text_filter != '' ) $text_filter = " AND $text_filter";
 				
 		if( $limit != '' ) $limit = "LIMIT $limit";
 
@@ -184,17 +190,20 @@ abstract class Table {
 	static public function exists( $id, $filters = array() ) {
 
 		global $db;
+		
+		$id = (int) $id;
+		
+		if( $id > 0 ) $filers['id'] = $id;
 				
 		$filter = '';		
 		foreach( $filters as $key => $value ) $filter .= " AND $key='" . escape( $value ) . "'";
 
-		$db->sql = sprintf( "SELECT id 
-					         FROM ".static::$table_name." 
-					         WHERE id=%d $filter
-					         LIMIT 1",
-					         $id );
+		$db->sql = "SELECT id 
+					FROM ".static::$table_name." 
+				    WHERE 1=1 $filter
+					LIMIT 1";
 		$db->query();
-
+		
 		return mysqli_num_rows( $db->rs );	
 	}
 

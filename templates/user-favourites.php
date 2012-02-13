@@ -4,7 +4,7 @@
 if(! USER::is_logged_in()):
 	$panels = array(array(
 		'legend'=>'Information',
-		'body'=>"<p class='success'><b>Please log in to use this function.</b><br />Registered users can save favourite ads.<br /><b>If you are not registered yet,then <a href='user-registration.php'>click here!</a></b></p>",
+		'body'=>"<p><b>Please log in to use this function <a href='user-registration.php'>or click here to register</a>.</b></p>",
 	));										
 elseif($tct < 1):		
 	$panels = array(array(

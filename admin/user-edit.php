@@ -12,20 +12,20 @@
 include( "./include/common.php");
 include( "./include/thumb.php");
 
-if ( ! User::is_logged_in() || User::get_id() != 1) {
+$g_id = ( isset( $_REQUEST['id'] ) ) ? (int) $_REQUEST['id'] : 0;
+
+if ( ! User::is_logged_in() || User::get_id() != 1 || $g_id < 2) {
 	header( 'Location: index.php' );
 	exit();
 }
 
-$g_id = ( isset( $_REQUEST['id'] ) ) ? (int) $_REQUEST['id'] : 0;
-    
-$user = User::get_one( $g_id );
+$exists = User::exists( $g_id );
 
-$exists = ( isset( $user['id'] ) && $g_id > 1 );
-
-if( $g_id > 0 && ! $exists ) {
+if( ! $exists ) {
 	$success = false;
 	$errors = array_push( $errors, $current_group_page['name'] . " not exist." );	
+} else {
+	$user = User::get_one( $g_id );
 }
 
 if( $exists ) {

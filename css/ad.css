@@ -40,3 +40,15 @@ th {
 .ad-data .usertools {
 	text-align: center;
 }
+.rev {
+	border: 1px solid gray;
+	width: 500px;
+    padding: 5px;
+}
+
+.rev-comment {
+	width:470px;
+    border-top: 1px solid gray;
+    margin: 5px 5px 0;
+    padding: 5px 5px 0;
+}

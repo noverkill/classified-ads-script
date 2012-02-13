@@ -2,8 +2,6 @@
 /**
  * Classified-ads-script
  * 
- * Admin area
- * 
  * @copyright  Copyright (c) Szilard Szabo
  * @license    GPL v3
  * @package    Frontend
@@ -153,6 +151,7 @@ if( isset( $_POST['post'] ) ) {
 		$ipaddr   = $_SERVER['REMOTE_ADDR'];
 			
 		$last = Ad::create( array(  
+			'user_id'	   => User::get_id(),
 			'name'         => $p_name, 
 			'email'        => $p_email, 
 			'telephone'    => $p_telephone, 
