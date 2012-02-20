@@ -87,10 +87,10 @@ include ("page-header.php");
 							print "<td>" . $row['sponsored'] . "</td>";
 						?>	
 						<td>
-							<a href=<?php print 'ad-edit.php?' . build_query_string( array( 'id' => $row[0] ) ); ?>>Edit</a><br />
-							<a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'd' => $row[0], 't' => time() ) ) . "#table'"; ?> onclick="return confirm ('Are you sure to delete?')">Delete</a><br />
-							<a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'o' => $row[0], 'r' => 1, 't' => time() ) ) . "#table'"; ?>>Sponzor</a><br />
-							<a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'o' => $row[0], 'r' => 0, 't' => time() ) ) . "#table'"; ?>>Desponzor</a>
+							<a href=<?php print 'ad-edit.php?' . build_query_string( array( 'id' => $row['id'] ) ); ?>>Edit</a><br />
+							<a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'd' => $row['id'], 't' => time() ) ) . "#table'"; ?> onclick="return confirm ('Are you sure to delete?')">Delete</a><br />
+							<a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'o' => $row['id'], 'r' => 1, 't' => time() ) ) . "#table'"; ?>>Sponzor</a><br />
+							<a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'o' => $row['id'], 'r' => 0, 't' => time() ) ) . "#table'"; ?>>Desponzor</a>
 						</td>	
 					</tr>
 				<?php

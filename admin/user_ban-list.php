@@ -20,18 +20,18 @@ if ( ! User::is_logged_in() || User::get_id() != 1) {
 if (isset($_GET['d'])) {
     $d = (int)$_GET['d'];
     if ($d > 1) {
-        User::delete( $d );
+        UserBanned::delete( $d );
     }
 }
 
-$tct = User::count();	//total count
+$tct = UserBanned::count();	//total count
 $rpp = 10; 				//row per page
 
 $pager_options = array('mode' => 'Sliding', 'perPage' => $rpp, 'delta' => 2, 'totalItems' => $tct, 'excludeVars' => array( 'o', 'r', 'd', 't', 'e' ) );
 $pager = @Pager::factory($pager_options);
 list($from, $to) = $pager->getOffsetByPageId();
 
-$users = User::get_all( array(), 'id>1', ( $from - 1 ) . ", $rpp" );
+$users = UserBanned::get_all( array(), 'id>1', ( $from - 1 ) . ", $rpp" );
 
 include ("page-header.php"); 
 
@@ -74,7 +74,6 @@ include ("page-header.php");
 							print "<td>" . $row['active'] . "</td>";
 						?>	
 						<td>
-							<a href=<?php print 'user-edit.php?' . build_query_string( array( 'id' => $row['id'] ) ); ?>>Edit</a>
 							<a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'd' => $row['id'], 't' => time() ) ) . "#table'"; ?> onclick="return confirm ('Are you sure to delete?')">Delete</a>
 						</td>	
 					</tr>

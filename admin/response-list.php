@@ -66,8 +66,8 @@ include ("page-header.php");
 							print "<td><a href='user-edit.php?id=" . $row['user_id'] . "'>" . $row['user_id'] . "</a></td>";
 						?>	
 						<td>
-							<a href=<?php print 'response-edit.php?' . build_query_string( array( 'id' => $row[0] ) ); ?>>Edit</a>		
-							<a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . "?d=" . $row[0] . "&t=" . time() . "#table'"; ?> onclick="return confirm ('Are you sure to delete?')">Delete</a>
+							<a href=<?php print 'response-edit.php?' . build_query_string( array( 'id' => $row['id'] ) ); ?>>Edit</a>		
+							<a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . "?d=" . $row['id'] . "&t=" . time() . "#table'"; ?> onclick="return confirm ('Are you sure to delete?')">Delete</a>
 						</td>	
 					</tr>
 				<?php

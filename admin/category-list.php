@@ -75,10 +75,10 @@ include ("page-header.php");
 						print "<td>" . $row['name'] . "</td>";
 					?>	
 					<td>
-						<a href=<?php print 'category-edit.php?' . build_query_string( array( 'id' => $row[0] ) ); ?>>Edit</a>		
-						<?php print "<a href='" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'd' => $row[0], 't' => time() ) ) . "#table' onclick='return confirm (\"Are you sure to delete?\")'>Delete</a>"; ?>
-						<?php print "<a href='" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'o' => $row[0], 'r' => 0, 't' => time() ) ) . "#table'>Up</a>"; ?>
-						<?php print "<a href='" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'o' => $row[0], 'r' => 1, 't' => time() ) ) . "#table'>Down</a>"; ?>
+						<a href=<?php print 'category-edit.php?' . build_query_string( array( 'id' => $row['id'] ) ); ?>>Edit</a>		
+						<?php print "<a href='" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'd' => $row['id'], 't' => time() ) ) . "#table' onclick='return confirm (\"Are you sure to delete?\")'>Delete</a>"; ?>
+						<?php print "<a href='" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'o' => $row['id'], 'r' => 0, 't' => time() ) ) . "#table'>Up</a>"; ?>
+						<?php print "<a href='" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'o' => $row['id'], 'r' => 1, 't' => time() ) ) . "#table'>Down</a>"; ?>
 						<?php if( $row['parent'] == 0 ) print "<a href='" . $_SERVER['SCRIPT_NAME'] . '?' . build_query_string( array( 'parent' => $row['id'] ) ) . "#table'>Subcategories(" . $row['childcount'] . ")</a>"; ?>
 					</td>	
 				</tr>
