@@ -1,4 +1,4 @@
-<?include('./templates/parts/page-top.php')?>
+<?include('./templates/layout/page-top.php')?>
 
 <?
 if(isset($_POST['register'])):	                  
@@ -32,7 +32,7 @@ else:
 			$panels = array(array(
 				'legend'=>'Please correct the following errors',
 				'body'=>$body
-			));
+			)); 
 		endif;	
 	endif;
 endif;
@@ -42,12 +42,12 @@ endif;
 
 	<?include('./templates/parts/panels.php')?>
 
-	<?include('./templates/parts/user-registration-form.php')?>
+	<?include('./templates/forms/user-registration-form.php')?>
 
 	<br />
 
 </div>
 
-<?include('./templates/parts/page-right.php')?>
+<?include('./templates/layout/page-right.php')?>
 
-<?include('./templates/parts/page-footer.php')?>
+<?include('./templates/layout/page-footer.php')?>

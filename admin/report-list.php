@@ -19,17 +19,17 @@ if ( ! User::is_logged_in() || User::get_id() != 1) {
 
 if (isset($_GET['d'])) {
     $d = (int)$_GET['d'];
-    if ($d > 6) StaticContent::delete( $d );  
+    Report::delete( $d );  
 }
 
-$tct = StaticContent::count(); 	//total count
-$rpp = 10; 						//row per page
+$tct = Report::count(); 	//total count
+$rpp = 10; 					//row per page
 
 $pager_options = array('mode' => 'Sliding', 'perPage' => $rpp, 'delta' => 2, 'totalItems' => $tct, 'excludeVars' => array( 'o', 'r', 'd', 't', 'e' ) );
 $pager = @Pager::factory($pager_options);
 list($from, $to) = $pager->getOffsetByPageId();
 
-$statics = StaticContent::get_all( array(), '', ( $from - 1 ) . ", $rpp" );
+$reports = Report::get_all( array(), '', ( $from - 1 ) . ", $rpp" );
 
 include ("page-header.php"); 
 
@@ -49,25 +49,25 @@ include ("page-header.php");
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Title</th>
-					<th>Slug</th>
+					<th>Ad id</th>
+					<th>User id</th>
 					<th>Operations</th>
 				</tr>
 			</thead>
 			<tbody>	
 				<?php
 				if ($tct < 1) print "<tr><td colspan='4'>No records.</td></tr>";
-				foreach( $statics as $row ) {
+				foreach( $reports as $row ) {
 				?>
 					<tr>
 						<?php
 							print "<td>" . $row['id'] . "</td>";
-							print "<td>" . $row['title'] . "</td>";
-							print "<td>" . $row['slug'] . "</td>";
+							print "<td><a href='ad-edit.php?id=" . $row['ad_id'] . "'>" . $row['ad_id'] . "</a></td>";
+							print "<td><a href='user-edit.php?id=" . $row['user_id'] . "'>" . $row['user_id'] . "</a></td>";
 						?>	
 						<td>
-							<a href=<?php print 'static-content-edit.php?' . build_query_string( array( 'id' => $row['id'] ) ); ?>>Edit</a>		
-							<?php if( $row['id'] > 6 ) { ?><a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . "?d=" . $row['id'] . "&t=" . time() . "#table'"; ?> onclick="return confirm ('Are you sure to delete?')">Delete</a><?php } ?>
+							<a href=<?php print 'report-edit.php?' . build_query_string( array( 'id' => $row[0] ) ); ?>>Edit</a>		
+							<a href=<?php print "'" . $_SERVER['SCRIPT_NAME'] . "?d=" . $row[0] . "&t=" . time() . "#table'"; ?> onclick="return confirm ('Are you sure to delete?')">Delete</a>
 						</td>	
 					</tr>
 				<?php

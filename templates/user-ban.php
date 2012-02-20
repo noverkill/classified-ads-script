@@ -1,15 +1,15 @@
 <?include('./templates/layout/page-top.php')?>
 
 <?
-if($success):
+if($exists):
 	$panels = array(array(
 		'legend' => 'Information',
-		'body'   => "<p class='success'>Your ad has been succesfuly activated.<br /><a href='ad.php?id=$g_id'>See the Ad</a></p>"
+		'body'   => "<p class='success'>The user has been banned succesfuly.</p>"
 	));	
 else:	
 	$panels = array(array(
 		'legend' => 'Error',
-		'body'   => "<ul class='errors'>Incorrect activation data.</ul>"
+		'body'   => "<ul class='errors'>User not exists.</ul>"
 	));
 endif;
 ?>

@@ -1,4 +1,4 @@
-<?include('./templates/parts/page-top.php')?>
+<?include('./templates/layout/page-top.php')?>
 
 <?
 
@@ -93,17 +93,21 @@ endif;
 					<?else:?>
 						<a href="user-favourites.php?remove=1&amp;<?=$qry?>">Remove from favourites</a>		
 					<?endif?>
-					
-					<?if(User::is_logged_in() && (User::get_email()==$ad['email'] || User::get_id()==1)): 
-						$qry = build_query_string(array('id'=>$ad['id'],'code'=>$ad['code']));
-					?>
-						<p>
+
+					<p>
+						<a href="ad-report.php?<?=$qry?>">Report abuse</a>
+										
+						<?if(User::is_logged_in() && (User::get_email()==$ad['email'] || User::get_id()==1)): 
+							$qry = build_query_string(array('id'=>$ad['id'],'code'=>$ad['code']));
+						?>
 							<a href="ad-modification.php?<?=$qry?>">Modify</a>
 							<a href="ad-extension.php?<?=$qry?>">Extend</a>
 							<a onclick="return confirm('Are you sure you want to remove?')" href="ad-removal.php?<?=$qry?>">Remove</a>				
-						</p>
-					<?endif?>	
-				
+							<?if(User::get_id()==1):?> 
+								<a onclick="return confirm('Are you sure you want to ban this user?')" href="user-ban.php?id=<?=$ad['user_id']?>">Ban user</a>				
+							<?endif?>	
+						<?endif?>	
+					</p>				
 				</div>
 							
 			</div><!-- end of ad-data -->
@@ -129,6 +133,6 @@ endif;
 
 </div>
 
-<?include ('./templates/parts/page-right.php')?>
+<?include ('./templates/layout/page-right.php')?>
 
-<?include ('./templates/parts/page-footer.php')?>
+<?include ('./templates/layout/page-footer.php')?>

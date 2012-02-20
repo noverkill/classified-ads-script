@@ -145,41 +145,90 @@ if( isset( $_POST['post'] ) ) {
 	                  
     if( $success ) {
 
-		$postedon = date( "Y-m-d H:i:s", time () );   
-		$expiry   = date( "Y-m-d"      , time () + $p_expiry * 24 * 60 * 60 );   
-		$code     = md5( uniqid( rand(), true ) ); 
 		$ipaddr   = $_SERVER['REMOTE_ADDR'];
+		
+		if( UserBanned::exists( 0, array(), "(email='$p_email' OR ipaddr='$ipaddr')" ) ) {
 			
-		$last = Ad::create( array(  
-			'user_id'	   => User::get_id(),
-			'name'         => $p_name, 
-			'email'        => $p_email, 
-			'telephone'    => $p_telephone, 
-			'title'        => $p_title, 
-			'description'  => $p_description, 
-			'picture'      => $p_picture, 
-			'category'     => $p_category, 
-			'price'        => $p_price, 
-			'city'         => $p_city, 
-			'region'       => $p_region, 
-			'expiry'       => $expiry, 
-			'webpage'      => $p_webpage,
-			'code'         => $code,
-			'ipaddr'       => $ipaddr,
-			'postedon'     => $postedon,
-			'lastmodified' => $postedon
-		 ) );
-
-		if( User::is_logged_in() ) {
-			
-			Ad::activate( $last );        			
+			$last = 666666;
 		
 		} else {
-			
-			$message = StaticContent::get_content( 'ad-activation-email' );			
-			eval( "\$message = \"$message\";" );
 
-			mail( $p_email, "Ad activation (Id: $last)", $message, "From: ".$noreply ); 
+			$postedon = date( "Y-m-d H:i:s", time () );   
+			$expiry   = date( "Y-m-d"      , time () + $p_expiry * 24 * 60 * 60 );   
+			$code  = md5( uniqid( rand(), true ) ); 
+
+			if( User::is_logged_in() ) {
+				$p_name  = User::get_name();
+				$p_email = User::get_email(); 
+			}
+			
+			$last = Ad::create( array(  
+				'user_id'	   => User::get_id(),
+				'name'         => $p_name, 
+				'email'        => $p_email, 
+				'telephone'    => $p_telephone, 
+				'title'        => $p_title, 
+				'description'  => $p_description, 
+				'picture'      => $p_picture, 
+				'category'     => $p_category, 
+				'price'        => $p_price, 
+				'city'         => $p_city, 
+				'region'       => $p_region, 
+				'expiry'       => $expiry, 
+				'webpage'      => $p_webpage,
+				'code'         => $code,
+				'ipaddr'       => $ipaddr,
+				'postedon'     => $postedon,
+				'lastmodified' => $postedon
+			 ) );
+
+			if( User::is_logged_in() ) {
+				
+				Ad::activate( $last );        			
+			
+			} else {
+				
+				if( ! $user_exists = User::exists( 0, array( 'email' => $p_email ) ) ) {
+					
+					$p_em      = explode( '@', $p_email ); 
+					$username  = substr ( $p_em[0], 0, 6 );	
+					$active    = 0;
+					$createdon = date( "Y-m-d H:i:s", time () );
+					$password  = substr( $code, 0, 6 );
+										
+					$userid = User::create (
+						array (	
+							'email'     => $p_email,
+							'username'  => $username,
+							'password'  => $password,
+							'name'      => $p_name,	
+							'active'   	=> $active,
+							'createdon' => $createdon,
+							'ipaddr'    => $ipaddr,
+							'code'   	=> $code,
+					) );
+
+					$registration_message = StaticContent::get_content('user-registration-email');		
+					eval( "\$registration_message = \"$registration_message\";" );
+
+				} else {
+					$user = User::get_one( 0, array( 'email' => $p_email ) );
+					$username = $user['username'];
+					 
+				}
+				
+				$ad_activation_message = StaticContent::get_content( 'ad-activation-email' );			
+				eval( "\$ad_activation_message = \"$ad_activation_message\";" );
+
+				mail( $p_email, "Ad activation (Id: $last)", $ad_activation_message, "From: ".$noreply ); 
+
+				debug($ad_activation_message);
+								
+				if( ! $user_exists ) {
+					mail( $p_email, "Registration", $registration_message, "From: ".$noreply );
+					debug($registration_message);
+				} 
+			}
 		}
     }
 }

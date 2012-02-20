@@ -23,7 +23,7 @@ else:
 
 				$panels = array(array(
 					'legend'=>'Information',
-					'body'=>"<p class='success'>Your response has been successfuly sent!<br /><a href='ad.php?id=$r_id'>Back to the Ad</a></p>"
+					'body'=>"<p class='success'>Your report has been successfuly sent!<br /><a href='ad.php?id=$r_id'>Back to the Ad</a></p>"
 				));
 						
 			else:
@@ -49,7 +49,7 @@ endif;
 
 	<?include('./templates/parts/panels.php')?>
 	
-	<?php if(USER::is_logged_in()):include('./templates/forms/ad-respond-form.php');endif?>
+	<?php if(USER::is_logged_in()):include('./templates/forms/ad-report-form.php');endif?>
 	
 	<br />
 

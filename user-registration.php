@@ -16,7 +16,8 @@ if( isset( $_POST['register'] ) ) {
     $p_email     = trim( strip_tags( $_POST['email'] ) );
     $p_username  = trim( strip_tags( $_POST['username'] ) );
     $p_password  = trim( strip_tags( $_POST['password'] ) );
-       
+	$p_terms     = isset( $_POST['terms'] ) ? 1 : 0;
+	       
     $success = true;
     $errors  = array();
 
@@ -45,6 +46,11 @@ if( isset( $_POST['register'] ) ) {
         array_push( $errors, "The password must be 3-10 character." );
     }
 
+	if ($p_terms < 1) {
+		$success = false;
+		array_push( $errors, "You should agree with the Terms and Conditions." );
+	}
+	
     if( $success ) {
 
 		$user = User::get_all( array( 'email' => $p_email ), '', 1 );
@@ -75,33 +81,37 @@ if( isset( $_POST['register'] ) ) {
 	
     if( $success ) {
 
-		$name      = ucfirst( $p_username );	
-		$active    = 0;
-		$createdon = date( "Y-m-d H:i:s", time () );
-		$ipaddr    = $_SERVER['REMOTE_ADDR'];
-		$code      = md5( uniqid( rand(), true ) ); 
-							
-		$last = User::create (
-			array (	
-				'email'     => $p_email,
-				'username'  => $p_username,
-				'password'  => $p_password,
-				'name'      => $name,	
-				'active'   	=> $active,
-				'createdon' => $createdon,
-				'ipaddr'    => $ipaddr,
-				'code'   	=> $code,
-		) );
+		$ipaddr = $_SERVER['REMOTE_ADDR'];
+			
+		if( ! UserBanned::exists( 0, array(), "(email='$p_email' OR ipaddr='$ipaddr')" ) ) { 
+			
+			$name      = ucfirst( $p_username );	
+			$active    = 0;
+			$createdon = date( "Y-m-d H:i:s", time () );
+			$code      = md5( uniqid( rand(), true ) ); 
+								
+			$last = User::create (
+				array (	
+					'email'     => $p_email,
+					'username'  => $p_username,
+					'password'  => $p_password,
+					'name'      => $name,	
+					'active'   	=> $active,
+					'createdon' => $createdon,
+					'ipaddr'    => $ipaddr,
+					'code'   	=> $code,
+			) );
 
-		$userid   = $last;
-		$email    = $p_email;
-		$username = $p_username;
-		$password = $p_password;
-							
-		$message = StaticContent::get_content('user-registration-email');		
-		eval( "\$message = \"$message\";" );
-
-		mail( $p_email, "Registration", $message, "From: ".$noreply );
+			$userid   = $last;
+			$email    = $p_email;
+			$username = $p_username;
+			$password = $p_password;
+								
+			$message = StaticContent::get_content('user-registration-email');		
+			eval( "\$message = \"$message\";" );
+debug($message);
+			mail( $p_email, "Registration", $message, "From: ".$noreply );
+		}
 	}
 } else {
 

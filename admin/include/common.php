@@ -20,23 +20,26 @@ $docroot = realpath( dirname( __FILE__ ) );
 include( "$docroot/config.php");
 include( "$docroot/db.php");
 include( "$docroot/db-table.php");
+include( "$docroot/db-tree-table.php");
 include( "$docroot/db-ad.php");
 include( "$docroot/db-region.php");
 include( "$docroot/db-category.php");
 include( "$docroot/db-expiry.php");
 include( "$docroot/db-static-content.php");
 include( "$docroot/db-user.php");
+include( "$docroot/db-user-banned.php");
 include( "$docroot/db-response.php");
 include( "$docroot/db-ad-review.php");
 include( "$docroot/db-favourite.php");
 include( "$docroot/db-user-review.php");
+include( "$docroot/db-report.php");
 
 $db = new db();
 if ( ! $db->connect() ) exit( mysql_error() );
 	
 $categories = Category::get_tree();
 $regions    = Region::get_tree();
-$statics    = StaticContent::get_all( array(), 'id>5' );
+$statics    = StaticContent::get_all( array(), 'id>6' );
 
 //counters	
 $today = date( "Y-m-d", time() );

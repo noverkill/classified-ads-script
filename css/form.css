@@ -38,6 +38,7 @@
 	width:220px;
 }
 
+input[readonly="readonly"],
 input[disabled="disabled"] {
 	background: none repeat scroll 0 0 #EEEEEE;
 	border: 0 none;

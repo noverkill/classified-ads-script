@@ -1,4 +1,4 @@
-<?include ('./templates/parts/page-top.php')?>
+<?include ('./templates/layout/page-top.php')?>
 
 <?
 if($tct < 1):
@@ -11,7 +11,7 @@ endif
 					
 <div id="middle">
 
-	<?include('./templates/parts/ad-search-form.php')?>
+	<?include('./templates/forms/ad-search-form.php')?>
 
 	<?include('./templates/parts/panels.php')?>
 
@@ -21,8 +21,8 @@ endif
 
 </div>
 
-<?include('./templates/parts/page-right.php')?>
+<?include('./templates/layout/page-right.php')?>
 
 <script type="text/javascript">window.onload = lform('form_search_fields')</script>	
 	
-<?include('./templates/parts/page-footer.php')?>
+<?include('./templates/layout/page-footer.php')?>

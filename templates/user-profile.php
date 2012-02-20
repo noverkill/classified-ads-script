@@ -1,4 +1,4 @@
-<?include('./templates/parts/page-top.php')?>
+<?include('./templates/layout/page-top.php')?>
 
 <?
 if(isset($_POST['modify'])):	
@@ -24,12 +24,12 @@ endif;
 
 	<?include('./templates/parts/panels.php')?>
 
-	<?include('./templates/parts/user-profile-form.php')?>
+	<?include('./templates/forms/user-profile-form.php')?>
 
 	<br />
 
 </div>
 
-<?include('./templates/parts/page-right.php')?>
+<?include('./templates/layout/page-right.php')?>
 
-<?include('./templates/parts/page-footer.php')?>
+<?include('./templates/layout/page-footer.php')?>

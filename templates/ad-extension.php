@@ -1,4 +1,4 @@
-<?include('./templates/parts/page-top.php')?>
+<?include('./templates/layout/page-top.php')?>
 
 <?
 if($ad_exists):	
@@ -6,7 +6,7 @@ if($ad_exists):
 		if($success):
 			$panels = array(array(
 				'legend'=>'Information',
-				'body'  =>"<p class='success'>Your ad's expiry has been succesfuly extended!</p>"
+				'body'  =>"<p class='success'>Your ad's expiry has been succesfuly extended.</p>"
 			));			
 		else:
 			$body = "<ul class='errors'>";
@@ -22,7 +22,7 @@ if($ad_exists):
 else:
 	$panels = array(array(
 		'legend'=>'Error',
-		'body'=>"<ul class='errors'>The requested Ad is not exist or inactive!</ul>"
+		'body'=>"<ul class='errors'>The requested Ad is not exist or inactive.</ul>"
 	));
 endif;
 
@@ -33,12 +33,12 @@ $expiries = Expiry::get_all();
 	
 	<?include('./templates/parts/panels.php')?>
 	
-	<?if($ad_exists)include('./templates/parts/ad-extension-form.php')?>
+	<?if($ad_exists)include('./templates/forms/ad-extension-form.php')?>
 
 	<br />
 
 </div>
 
-<?include('./templates/parts/page-right.php')?>
+<?include('./templates/layout/page-right.php')?>
 
-<?include('./templates/parts/page-footer.php')?>
+<?include('./templates/layout/page-footer.php')?>

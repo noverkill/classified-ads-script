@@ -1,4 +1,4 @@
-<?include('./templates/parts/page-top.php')?>
+<?include('./templates/layout/page-top.php')?>
 
 <?
 
@@ -57,12 +57,12 @@ endif;
 
 	<?include('./templates/parts/panels.php')?>
 	
-	<?php if(User::is_logged_in() && User::get_id()!=$user['id']):include('./templates/parts/user-review-form.php');endif?>
+	<?php if(User::is_logged_in() && User::get_id()!=$user['id']):include('./templates/forms/user-review-form.php');endif?>
 	
 	<br />
 
 </div>
 
-<?include ('./templates/parts/page-right.php')?>
+<?include ('./templates/layout/page-right.php')?>
 
-<?include ('./templates/parts/page-footer.php')?>
+<?include ('./templates/layout/page-footer.php')?>

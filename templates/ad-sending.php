@@ -1,4 +1,4 @@
-<?include('./templates/parts/page-top.php')?>
+<?include('./templates/layout/page-top.php')?>
 
 <?
 
@@ -42,12 +42,12 @@ endif;
 
 	<?include('./templates/parts/panels.php')?>
 	
-	<?include('./templates/parts/ad-sending-form.php')?>
+	<?include('./templates/forms/ad-sending-form.php')?>
 	
 	<br />
 
 </div>
 
-<?include('./templates/parts/page-right.php')?>
+<?include('./templates/layout/page-right.php')?>
 
-<?include('./templates/parts/page-footer.php')?>
+<?include('./templates/layout/page-footer.php')?>
