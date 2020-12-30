@@ -2,10 +2,11 @@ Classified-Ads-Script
 
 Simple straightforward PHP script for Classified Ads site,
 It is implemented purely without any un-needed complexity 
-and the overkill of any MVC framework.
-Engineered the Noverkill (no-overkill) way :-D
+and the overkill of any MVC framework and its 
+overcomplicated design patterns.
 
-Stable and working as it is since 2004.
+It is all engineered the Noverkill (no-overkill) way :-D
+Robust, stable and working as it is since 2004 !!!
 
 Last release:   1.0.2
 License:        GPL v3
