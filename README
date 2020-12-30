@@ -1,9 +1,18 @@
 Classified-Ads-Script
 
+Simple straightforward PHP script for Classified Ads site,
+implemented purely without any un-needed complexity 
+and the overkill of any MVC framework.
+
+Stable and working as it is since 2004.
+
 Last release:   1.0.2
 License:        GPL v3
-Installation:   http://classified-ads-script.co.uk
-Support at:     http://classified-ads-script.co.uk/forum/
+Support at:     Website and forum under progress (contributors needed)
+
+This project need contributors!
+Please give us the stars, fork our repo as usual but also please contribute!
+You are more than welcome to submit bugs and even more to fix them :-D
 
 Requirements:
 
