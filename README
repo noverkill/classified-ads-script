@@ -29,4 +29,4 @@ Installation:
 4. If you need sample data, run the sql commands in the db-sample.sql too.
 3. Go to the admin/include directory, open the config.php file and set it up according the comments.
 4. Upload all files to the desired location on your web server
-5. That's it.
+5. That's it. Enjoy :-D
