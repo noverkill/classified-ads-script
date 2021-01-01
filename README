@@ -7,12 +7,12 @@ overcomplicated design patterns, and all the hassle of
 PSR-s, containers, dependecy injection and inversion of control.
 This codes is structural where structural is good enough and OOP
 only where it is really needed for simplicity and cleanliness.
-Keep your life simple, no overkill!
+Keep your life simple! 
+No overkill, give a star to Noverkill :-D
 
-It is all engineered the Noverkill (no-overkill) way :-D
-Robust, stable, memory efficient, scalable and working as it is without any major changes since 2004 !!!
+This scrit is robust, stable, memory efficient, scalable and working as it is without any major changes since 2004 !!!
 
-(There will be a new implementation based on MVC framework and its design patterns soon if you vote for it :-D)
+(There will be a new implementation based on MVC framework and all the hassle of its design patterns soon if you vote for it :-D)
 /Contributors needed!!!/
 
 Last release:   1.0.2
