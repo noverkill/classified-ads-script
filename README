@@ -6,8 +6,8 @@ and the overkill of any MVC framework and its
 overcomplicated design patterns, and all the hassle of 
 PSR-s, containers, dependecy injection and inversion of control.
 This codes is structural where structural is good enough and OOP
-only where it is really needed.
-Keep your life simple!
+only where it is really needed for simplicity and cleanliness.
+Keep your life simple, no overkill!
 
 It is all engineered the Noverkill (no-overkill) way :-D
 Robust, stable, memory efficient, scalable and working as it is without any major changes since 2004 !!!
