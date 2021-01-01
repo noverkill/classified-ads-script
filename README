@@ -5,6 +5,8 @@ It is implemented purely without any un-needed complexity
 and the overkill of any MVC framework and its 
 overcomplicated design patterns, and all the hassle of 
 PSR-s, containers, dependecy injection and inversion of control.
+This codes is structural where structural is good enough and OOP
+only where it is really needed.
 Keep your life simple!
 
 It is all engineered the Noverkill (no-overkill) way :-D
