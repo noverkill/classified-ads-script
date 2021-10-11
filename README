@@ -1,21 +1,17 @@
 Classified-Ads-Script
 
-Simple straightforward vanilla PHP Classified Ads script.
-It is implemented purely without any un-needed extra complexity.
-This codes is structural where structural is good enough and OOP
-only where it is really needed for simplicity and cleanliness.
-Keep your life simple! 
-No overkill, give a star to Noverkill :-D
+Simple straightforward Classified Ads script from 2004 !
+It is implemented purely using vanilla PHP without any extra layer of complexity.
+This codes is only OOP where structural is not good enough :-D 
+Coded with no overkill, give a star to Noverkill :-D
 
-The script is robust, stable, memory efficient, scalable and working as it is without any major changes since 2004 !!!
-
-(We are planning a new implementation based on any popular MVC framework if you vote for it and if people contribute :-D)
+The script is robust, stable, memory efficient, scalable and working as it is without any major changes since 2004 !
 
 Last release:   1.0.2
 License:        GPL v3
 Support at:     Website and forum under progress (contributors needed)
 
-Please give us the stars, fork our repo and also please contribute with pull requests!
+Please give a start, fork and also please contribute with pull requests!
 You are more than welcome to submit bugs and even more welcomed to fix them :-D
 
 Min requirements:
