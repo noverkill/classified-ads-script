@@ -3,12 +3,13 @@ Legacy Classified Ads Script
 Simple straightforward Classified Ads script from 2004 !
 It is implemented purely using vanilla PHP without any extra layer of complexity.
 This codes is only OOP where structural is not good enough :-D 
-Coded with no overkill, give a star to Noverkill :-D
 
 The script is very easy to read and understand, spilt up into very straightforward files.
 Robust, stable, memory / cpu efficient and easy to extend / modify and scale.
-There is no under hood code doing any mistical magic for you. (LOL)
+There is no under the hood code doing any mistical magic for you in tucked away places. (LOL)
 It is working as it is without any major changes since 2004 !
+
+Coded with no overkill, give a star to Noverkill :-D
 
 Last release:   1.0.2
 License:        GPL v3
